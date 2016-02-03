@@ -1,4 +1,4 @@
-var appPageHistory=[]; 
+var appPageHistory=[];
 var jsonToBeSend=new Object();
 var jsonBEArr = [];
 var budgetingStatus;
@@ -446,7 +446,7 @@ function fetchExpenseClaim() {
 				headerOprationBtn = defaultPagePath+'headerPageForBEOperation.html';
 				if(j(this).hasClass("selected")){ 
 				var pageRef=defaultPagePath+'fairClaimTable.html';
-				var headerBackBtn=defaultPagePath+'backbtnPage.html';
+				var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
 					j(this).removeClass('selected');
 					j('#mainHeader').load(headerBackBtn);
 					j('#mainContainer').load(pageRef);
@@ -542,7 +542,7 @@ function fetchExpenseClaim() {
 				headerOprationBtn = defaultPagePath+'headerPageForTSOperation.html';
 				if(j(this).hasClass("selected")){ 
 				var pageRef=defaultPagePath+'travelSettlementTable.html';
-				var headerBackBtn=defaultPagePath+'backbtnPage.html';
+				var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
 					j(this).removeClass('selected');
 					j('#mainHeader').load(headerBackBtn);
 					j('#mainContainer').load(pageRef);
@@ -1063,8 +1063,7 @@ function deleteSelectedExpDetails(businessExpDetailId){
 			});
 	  }
 					  
-function fetchWalletImage() {	
-
+function fetchWalletImage() {
 			var rowsWallet;
 			mytable = j('<table></table>').attr({ id: "walletSource",class: ["table","table-striped","table-bordered"].join(' ') });
 		 
@@ -1079,7 +1078,7 @@ function fetchWalletImage() {
 						
 					  var row = result.rows.item(i);						 
 					  
-							if(i % 4 == 0){
+							if(i % 2 == 0){
 								rowsWallet = j('<tr></tr>').attr({ class: ["test"].join(' ') }).appendTo(mytable);  
 							}				
 							
@@ -1103,7 +1102,7 @@ function fetchWalletImage() {
 				  }		
 				});
 			});
-			 mytable.appendTo("#walletBox");	 
+			mytable.appendTo("#walletBox");	 
 }
 
 function deleteSelectedWallets(walletID){
