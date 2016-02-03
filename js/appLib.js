@@ -1401,4 +1401,39 @@ function synchronizeTRForTS() {
 		j('#travelExpenseName').select2('close');
 	}
 	
-	
+ function showHelpMenu(){
+		var headerBackBtn=defaultPagePath+'backbtnPage.html';
+     var pageRef=defaultPagePath+'helpMenuPage.html';
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+   appPageHistory.push(pageRef);
+	}
+	function showBEBRBHelp(){
+		var headerBackBtn=defaultPagePath+'backbtnPage.html';
+     var pageRef=defaultPagePath+'helpBEBRPage.html';
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+   appPageHistory.push(pageRef);
+	}
+	function showTRTSHelp(){
+		var headerBackBtn=defaultPagePath+'backbtnPage.html';
+     var pageRef=defaultPagePath+'helpTRTSPage.html';
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+   appPageHistory.push(pageRef);
+	}
+	function showWalletHelp(){
+		var headerBackBtn=defaultPagePath+'backbtnPage.html';
+     var pageRef=defaultPagePath+'helpWalletPage.html';
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+   appPageHistory.push(pageRef);
+	}
