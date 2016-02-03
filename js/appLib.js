@@ -102,7 +102,8 @@ function goBack() {
 			appPageHistory.pop();
 			var len=appPageHistory.length;
 			var pg=appPageHistory[len-1];
-			if(pg=="app/pages/addAnExpense.html"){ 
+			if(pg=="app/pages/addAnExpense.html" 
+				|| pg=="app/pages/addTravelSettlement.html"){
 				
 				j('#mainHeader').load(headerBackBtn);
 			}else if(pg=="app/pages/category.html"){
@@ -446,7 +447,7 @@ function fetchExpenseClaim() {
 				headerOprationBtn = defaultPagePath+'headerPageForBEOperation.html';
 				if(j(this).hasClass("selected")){ 
 				var pageRef=defaultPagePath+'fairClaimTable.html';
-				var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
+				var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
 					j(this).removeClass('selected');
 					j('#mainHeader').load(headerBackBtn);
 					j('#mainContainer').load(pageRef);
@@ -930,7 +931,18 @@ function synchronizeBEMasterData() {
 	}
 	createAccHeadDropDown(jsonAccHeadArr);
 }	 
-
+function getTrAccHeadList(transaction, results) {
+	var i;
+	var jsonAccHeadArr = [];
+	for (i = 0; i < results.rows.length; i++) {
+        var row = results.rows.item(i);
+		var jsonFindAccHead = new Object();
+		jsonFindAccHead["Label"] = row.accHeadId;
+		jsonFindAccHead["Value"] = row.accHeadName;
+		jsonAccHeadArr.push(jsonFindAccHead);
+	}
+	createTRAccHeadDropDown(jsonAccHeadArr);
+}	
 function getExpNameList(transaction, results) {
     var i;
 	var jsonExpNameArr = [];
@@ -969,6 +981,7 @@ function getCurrencyList(transaction, results) {
 				t.executeSql("SELECT * FROM travelCategoryMst", [], fetchTrvlCategoryList);
 				t.executeSql("SELECT * FROM cityTownMst", [], fetchCityTownList);
 				t.executeSql("SELECT * FROM travelTypeMst", [], fetchTrvlTypeList);
+				t.executeSql("SELECT * FROM travelAccountHeadMst where processId=3", [], getTrAccHeadList);
 			});
 	} else {
 		alert("db not found, your browser does not support web sql!");
@@ -1102,7 +1115,7 @@ function fetchWalletImage() {
 				  }		
 				});
 			});
-			mytable.appendTo("#walletBox");	 
+			 mytable.appendTo("#walletBox");	 
 }
 
 function deleteSelectedWallets(walletID){
