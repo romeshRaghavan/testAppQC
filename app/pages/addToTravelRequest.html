@@ -6,14 +6,18 @@
             <div class="expenseform clearfix" data-role="page" id="page1">
               <ul>
 				<li>
-				<input id="travelTitle" type="text" placeholder="Travel Title">
+					<input id="travelTitle" type="text" placeholder="Travel Title">
 				</li>
                 <li>
 					<input id="travelType" type="hidden" style="width: 98%">
                 </li>
+				<li>
+                  <input id="trAccountHead" type="hidden" style="width: 98%">
+                </li>
                 <li>
                   <input id="fromCitytown" type="hidden" style="width: 98%">
                 </li>
+				
                 <li>
                   <input id="toCitytown" type="hidden" style="width: 98%">
                 </li>
@@ -145,11 +149,19 @@
       
 	 <script>
 	   $(function() {
-    $( "#selectDate_One" ).datepicker();
-	$( "#selectDate_Two" ).datepicker();
-	$( "#selectDate_Three" ).datepicker();
-  });
+	$( "#selectDate_One" ).datepicker();
+	$("#selectDate_Three").datepicker({
+     onSelect:function(selectedDate)
+     {
+	   var date = new Date(selectedDate);
+		$('#selectDate_Two').datepicker({
+		minDate: new Date(date.getFullYear(), date.getMonth(), date.getDate())
+		});
+     }
+	});
 	
+  });
+	  
 	 j("#travelMode").change(function() {
 		 getCatergoryBasedOnMode();
 	  });
