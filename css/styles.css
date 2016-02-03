@@ -454,3 +454,13 @@
     border-radius: 3px;  
     background-color: #ffffff; 
 }
+.directionlogo {
+	background-image: url("../images/Direction.png");
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 22px;
+	margin-top: 2%;
+	margin-bottom: -8%;
+    margin-left: 30%;
+	margin-right: 70px;
+}
