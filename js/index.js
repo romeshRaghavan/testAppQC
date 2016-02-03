@@ -1486,7 +1486,7 @@ function oprationOnExpenseClaim(){
 							  sendForApprovalBusinessDetails(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
 						  }
 					  }else{
-						  alert("Please select Row");
+						 alert("Tap and select Expenses to synch with server.");
 					  }
 			});
 			
@@ -1510,7 +1510,7 @@ function oprationOnExpenseClaim(){
 					  }
 					  j('#mainContainer').load(pageRef);
 				  }else{
-					  alert("Please select Row");
+					  alert("Tap and select Expenses to delete with app.");
 				  }
 			});
 	j('#synch').on('click', function(e){
@@ -1558,7 +1558,7 @@ function oprationOnExpenseClaim(){
 						  saveBusinessExpDetails(jsonExpenseDetailsArr,busExpDetailsArr);
 					  }
 				  }else{
-					  alert("Please select Row");
+					 alert("Tap and select Expenses to synch with server.");
 				  }
 			});
 	
@@ -1614,7 +1614,7 @@ function oprationONTravelSettlementExp(){
 				 	 saveTravelSettleExpDetails(jsonTravelSettlementDetailsArr,travelSettleExpDetailsArr);
 				  }
 			}else{
-				alert("Please select Row");
+				 alert("Tap and select Expenses to synch with server.");
 			}
 			});
 			
@@ -1636,7 +1636,7 @@ function oprationONTravelSettlementExp(){
 					  j('#mainContainer').load(pageRef);
 					  j('#mainHeader').load(headerBackBtn);	
 				  }else{
-					  alert("Please select Row");
+					 alert("Tap and select Expenses to delete with app.");
 				  }	
 			});
 	}
