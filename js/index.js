@@ -801,11 +801,22 @@ function syncSubmitTravelDetails(){
 					  crossDomain: true,
 					  data: JSON.stringify(jsonToSaveTR),
 					  success: function(data) {
-						 successMessage = data.Message;
-						 j('#loading_Cat').hide();
-						 j('#mainContainer').load(pageRef);
-						 appPageHistory.push(pageRef);
-					  },
+						  if(data.Status=="Failure"){
+							  successMessage = data.Message;
+							  alert(successMessage);
+							  j('#loading_Cat').hide();
+						  }else if(data.Status=="Success"){
+							   successMessage = data.Message;
+								j('#loading_Cat').hide();
+								j('#mainContainer').load(pageRef);
+								appPageHistory.push(pageRef);
+						  }else{
+							 successMessage = "Error: Oops something is wrong, Please Contact System Administer";
+							  j('#loading_Cat').hide();
+							  j('#mainContainer').load(pageRef);
+							   appPageHistory.push(pageRef);
+						  }
+					},
 					  error:function(data) {
 						j('#loading_Cat').hide();
 						alert("Error: Oops something is wrong, Please Contact System Administer");
