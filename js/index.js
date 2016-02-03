@@ -1364,82 +1364,85 @@ function oprationOnExpenseClaim(){
 				  expenseClaimDates=new Object;
 				  
 				  var accountHeadIdToBeSent=''
-				  
-				  j("#source tr.selected").each(function(index, row) {
-					var busExpDetailId = j(this).find('td.busExpId').text();
-					var jsonFindBE = new Object();
+					  if(j("#source tr.selected").hasClass("selected")){
+						  j("#source tr.selected").each(function(index, row) {
+							  var busExpDetailId = j(this).find('td.busExpId').text();
+							  var jsonFindBE = new Object();
 
-					var expDate = j(this).find('td.expDate1').text();
-					var expenseDate  = expDate;
-					var currentDate=new Date(expenseDate);
-					//get Start Date
-					if(!expenseClaimDates.hasOwnProperty('minInDateFormat')){
-						expenseClaimDates["minInDateFormat"]=currentDate;
-						expenseClaimDates["minInStringFormat"]=expenseDate;
-					}else{
-						if(expenseClaimDates.minInDateFormat>currentDate){
-							expenseClaimDates["minInDateFormat"]=currentDate;
-							expenseClaimDates["minInStringFormat"]=expenseDate;
-						}
-					}
-					//get End Date
-					if(!expenseClaimDates.hasOwnProperty('maxInDateFormat')){
-						expenseClaimDates["maxInDateFormat"]=currentDate;
-						expenseClaimDates["maxInStringFormat"]=expenseDate;
-					}else{
-						if(expenseClaimDates.maxInDateFormat<currentDate){
-							expenseClaimDates["maxInDateFormat"]=currentDate;
-							expenseClaimDates["maxInStringFormat"]=expenseDate;
-						}
-					}
+							  var expDate = j(this).find('td.expDate1').text();
+							  var expenseDate  = expDate;
+							  var currentDate=new Date(expenseDate);
+							  //get Start Date
+							  if(!expenseClaimDates.hasOwnProperty('minInDateFormat')){
+								  expenseClaimDates["minInDateFormat"]=currentDate;
+								  expenseClaimDates["minInStringFormat"]=expenseDate;
+							  }else{
+								  if(expenseClaimDates.minInDateFormat>currentDate){
+									  expenseClaimDates["minInDateFormat"]=currentDate;
+									  expenseClaimDates["minInStringFormat"]=expenseDate;
+								  }
+							  }
+							  //get End Date
+							  if(!expenseClaimDates.hasOwnProperty('maxInDateFormat')){
+								  expenseClaimDates["maxInDateFormat"]=currentDate;
+								  expenseClaimDates["maxInStringFormat"]=expenseDate;
+							  }else{
+								  if(expenseClaimDates.maxInDateFormat<currentDate){
+									  expenseClaimDates["maxInDateFormat"]=currentDate;
+									  expenseClaimDates["maxInStringFormat"]=expenseDate;
+								  }
+							  }
 
-					
-					jsonFindBE["expenseDate"] = expenseDate;
-					//get Account Head
-					var currentAccountHeadID=j(this).find('td.accHeadId').text();
-					
-					if(validateAccountHead(accountHeadIdToBeSent,currentAccountHeadID)==false){
-						exceptionMessage="Selected expenses should be mapped under Single Expense Type/Account Head."
-						 j('#displayError').children('span').text(exceptionMessage);
-				 		j('#displayError').hide().fadeIn('slow').delay(3000).fadeOut('slow');
-				 		accountHeadIdToBeSent="";
-					}else{
-						accountHeadIdToBeSent=currentAccountHeadID
-					
-					jsonFindBE["accountCodeId"] = j(this).find('td.accountCodeId').text();
-					jsonFindBE["ExpenseId"] =j(this).find('td.expNameId').text();
-					jsonFindBE["ExpenseName"] = j(this).find('td.expName').text();
-					jsonFindBE["fromLocation"] = j(this).find('td.expFromLoc1').text();
-					jsonFindBE["toLocation"] = j(this).find('td.expToLoc1').text();
-					jsonFindBE["narration"] = j(this).find('td.expNarration1').text();
-					jsonFindBE["perUnitException"] = j(this).find('td.isEntitlementExceeded').text();
-					
-						if(j(this).find('td.expUnit').text()!="" ) {
-						jsonFindBE["units"] = j(this).find('td.expUnit').text();
-						}
-					
-					jsonFindBE["amount"] = j(this).find('td.expAmt1').text();
-					jsonFindBE["currencyId"] = j(this).find('td.currencyId').text();
-					
-					var dataURL =  j(this).find('td.busAttachment').text();
-					
-					//For IOS image save
-					var data = dataURL.replace(/data:image\/(png|jpg|jpeg);base64,/, '');
-					
-					//For Android image save
-					//var data = dataURL.replace(/data:base64,/, '');
-					
-					jsonFindBE["imageAttach"] = data; 
-					 
-					jsonExpenseDetailsArr.push(jsonFindBE);
-					
-					busExpDetailsArr.push(busExpDetailId);
-					}
-				  });
-				  
-				if(accountHeadIdToBeSent!="" && busExpDetailsArr.length>0){
-				  sendForApprovalBusinessDetails(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
-				}
+
+							  jsonFindBE["expenseDate"] = expenseDate;
+							  //get Account Head
+							  var currentAccountHeadID=j(this).find('td.accHeadId').text();
+
+							  if(validateAccountHead(accountHeadIdToBeSent,currentAccountHeadID)==false){
+								  exceptionMessage="Selected expenses should be mapped under Single Expense Type/Account Head."
+									  j('#displayError').children('span').text(exceptionMessage);
+								  j('#displayError').hide().fadeIn('slow').delay(3000).fadeOut('slow');
+								  accountHeadIdToBeSent="";
+							  }else{
+								  accountHeadIdToBeSent=currentAccountHeadID
+
+								  jsonFindBE["accountCodeId"] = j(this).find('td.accountCodeId').text();
+								  jsonFindBE["ExpenseId"] =j(this).find('td.expNameId').text();
+								  jsonFindBE["ExpenseName"] = j(this).find('td.expName').text();
+								  jsonFindBE["fromLocation"] = j(this).find('td.expFromLoc1').text();
+								  jsonFindBE["toLocation"] = j(this).find('td.expToLoc1').text();
+								  jsonFindBE["narration"] = j(this).find('td.expNarration1').text();
+								  jsonFindBE["perUnitException"] = j(this).find('td.isEntitlementExceeded').text();
+
+								  if(j(this).find('td.expUnit').text()!="" ) {
+									  jsonFindBE["units"] = j(this).find('td.expUnit').text();
+								  }
+
+								  jsonFindBE["amount"] = j(this).find('td.expAmt1').text();
+								  jsonFindBE["currencyId"] = j(this).find('td.currencyId').text();
+
+								  var dataURL =  j(this).find('td.busAttachment').text();
+
+								  //For IOS image save
+								  var data = dataURL.replace(/data:image\/(png|jpg|jpeg);base64,/, '');
+
+								  //For Android image save
+								  //var data = dataURL.replace(/data:base64,/, '');
+
+								  jsonFindBE["imageAttach"] = data; 
+
+								  jsonExpenseDetailsArr.push(jsonFindBE);
+
+								  busExpDetailsArr.push(busExpDetailId);
+							  }
+						  });
+
+						  if(accountHeadIdToBeSent!="" && busExpDetailsArr.length>0){
+							  sendForApprovalBusinessDetails(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
+						  }
+					  }else{
+						  alert("Please select Row");
+					  }
 			});
 			
 		j('#delete').on('click', function(e){ 
@@ -1448,63 +1451,70 @@ function oprationOnExpenseClaim(){
 				  expenseClaimDates=new Object;
 				
 				  var pageRef=defaultPagePath+'fairClaimTable.html';
-				  j("#source tr.selected").each(function(index, row) {
-					var busExpDetailId = j(this).find('td.busExpId').text();
-					busExpDetailsArr.push(busExpDetailId);
-				  });
-				  
-				if(busExpDetailsArr.length>0){
-					for(var i=0; i<busExpDetailsArr.length; i++ ){
-						var businessExpDetailId = busExpDetailsArr[i];
-						deleteSelectedExpDetails(businessExpDetailId);
-					}
-				}
-				j('#mainContainer').load(pageRef);
+				  if(j("#source tr.selected").hasClass("selected")){
+					  j("#source tr.selected").each(function(index, row) {
+						  var busExpDetailId = j(this).find('td.busExpId').text();
+						  busExpDetailsArr.push(busExpDetailId);
+					  });
+
+					  if(busExpDetailsArr.length>0){
+						  for(var i=0; i<busExpDetailsArr.length; i++ ){
+							  var businessExpDetailId = busExpDetailsArr[i];
+							  deleteSelectedExpDetails(businessExpDetailId);
+						  }
+					  }
+					  j('#mainContainer').load(pageRef);
+				  }else{
+					  alert("Please select Row");
+				  }
 			});
 	j('#synch').on('click', function(e){
 				  var busExpDetailsArr = [];
 				  var jsonExpenseDetailsArr = [];
 				  expenseClaimDates=new Object;
-				 
-				  j("#source tr.selected").each(function(index, row) { 
-					var busExpDetailId = j(this).find('td.busExpId').text();
-					var jsonFindBE = new Object();
-					var expDate = j(this).find('td.expDate1').text();
-					var expenseDate = expDate;
-				
-					jsonFindBE["expenseDate"] = expenseDate;
-					jsonFindBE["accountHeadId"] =j(this).find('td.accHeadId').text();
-					jsonFindBE["accountCodeId"] = j(this).find('td.accountCodeId').text();
-					jsonFindBE["expenseId"] =j(this).find('td.expNameId').text();
-					jsonFindBE["ExpenseName"] = j(this).find('td.expName').text();
-					jsonFindBE["fromLocation"] = j(this).find('td.expFromLoc1').text();
-					jsonFindBE["toLocation"] = j(this).find('td.expToLoc1').text();
-					jsonFindBE["narration"] = j(this).find('td.expNarration1').text();
-					if(j(this).find('td.expUnit').text()!="" ) {
-					jsonFindBE["units"] = j(this).find('td.expUnit').text();
-					}
-					jsonFindBE["amount"] = j(this).find('td.expAmt1').text();
-					jsonFindBE["currencyId"] = j(this).find('td.currencyId').text();
-					jsonFindBE["perUnitException"] = j(this).find('td.isEntitlementExceeded').text();
-					
-					var dataURL =  j(this).find('td.busAttachment').text();
-					
-					//For IOS image save
-					var data = dataURL.replace(/data:image\/(png|jpg|jpeg);base64,/, '');
-					
-					//For Android image save
-					//var data = dataURL.replace(/data:base64,/, '');
-					
-					jsonFindBE["imageAttach"] = data; 
-					 
-					jsonExpenseDetailsArr.push(jsonFindBE);
-					
-					busExpDetailsArr.push(busExpDetailId);
-					
-				  });
-				if(busExpDetailsArr.length>0){
-				  saveBusinessExpDetails(jsonExpenseDetailsArr,busExpDetailsArr);
-				}
+				  if(j("#source tr.selected").hasClass("selected")){
+					  j("#source tr.selected").each(function(index, row) { 
+						  var busExpDetailId = j(this).find('td.busExpId').text();
+						  var jsonFindBE = new Object();
+						  var expDate = j(this).find('td.expDate1').text();
+						  var expenseDate = expDate;
+
+						  jsonFindBE["expenseDate"] = expenseDate;
+						  jsonFindBE["accountHeadId"] =j(this).find('td.accHeadId').text();
+						  jsonFindBE["accountCodeId"] = j(this).find('td.accountCodeId').text();
+						  jsonFindBE["expenseId"] =j(this).find('td.expNameId').text();
+						  jsonFindBE["ExpenseName"] = j(this).find('td.expName').text();
+						  jsonFindBE["fromLocation"] = j(this).find('td.expFromLoc1').text();
+						  jsonFindBE["toLocation"] = j(this).find('td.expToLoc1').text();
+						  jsonFindBE["narration"] = j(this).find('td.expNarration1').text();
+						  if(j(this).find('td.expUnit').text()!="" ) {
+							  jsonFindBE["units"] = j(this).find('td.expUnit').text();
+						  }
+						  jsonFindBE["amount"] = j(this).find('td.expAmt1').text();
+						  jsonFindBE["currencyId"] = j(this).find('td.currencyId').text();
+						  jsonFindBE["perUnitException"] = j(this).find('td.isEntitlementExceeded').text();
+
+						  var dataURL =  j(this).find('td.busAttachment').text();
+
+						  //For IOS image save
+						  var data = dataURL.replace(/data:image\/(png|jpg|jpeg);base64,/, '');
+
+						  //For Android image save
+						  //var data = dataURL.replace(/data:base64,/, '');
+
+						  jsonFindBE["imageAttach"] = data; 
+
+						  jsonExpenseDetailsArr.push(jsonFindBE);
+
+						  busExpDetailsArr.push(busExpDetailId);
+
+					  });
+					  if(busExpDetailsArr.length>0){
+						  saveBusinessExpDetails(jsonExpenseDetailsArr,busExpDetailsArr);
+					  }
+				  }else{
+					  alert("Please select Row");
+				  }
 			});
 	
 });
@@ -1516,6 +1526,7 @@ function oprationONTravelSettlementExp(){
 			var jsonTravelSettlementDetailsArr = [];
 			var travelSettleExpDetailsArr = [];
 			minExpenseClaimDate=new Object;
+			if(j("#source tr.selected").hasClass("selected")){
 				  j("#source tr.selected").each(function(index, row) {
 					var travelSettleDetailId = j(this).find('td.tsExpId').text();
 					var jsonFindTS = new Object();
@@ -1557,24 +1568,31 @@ function oprationONTravelSettlementExp(){
 					if(travelSettleExpDetailsArr.length>0){
 				 	 saveTravelSettleExpDetails(jsonTravelSettlementDetailsArr,travelSettleExpDetailsArr);
 				  }
+			}else{
+				alert("Please select Row");
+			}
 			});
 			
 			j('#deleteTS').on('click', function(e){
 				var travelSettleExpDetailsArr = [];
 				   
 				  var pageRef=defaultPagePath+'travelSettlementTable.html';
-				  j("#source tr.selected").each(function(index, row) {
-					var travelSettleDetailId = j(this).find('td.tsExpId').text();
-					travelSettleExpDetailsArr.push(travelSettleDetailId);
-				  });
-					if(travelSettleExpDetailsArr.length>0){
-				 	 for(var i=0; i<travelSettleExpDetailsArr.length; i++ ){
-						var travelSettleExpDetailId = travelSettleExpDetailsArr[i];
-						deleteSelectedTSExpDetails(travelSettleExpDetailId);
-					 }
-				  }
-				  j('#mainContainer').load(pageRef);
-				  j('#mainHeader').load(headerBackBtn);				  
+				  if(j("#source tr.selected").hasClass("selected")){
+					  j("#source tr.selected").each(function(index, row) {
+						  var travelSettleDetailId = j(this).find('td.tsExpId').text();
+						  travelSettleExpDetailsArr.push(travelSettleDetailId);
+					  });
+					  if(travelSettleExpDetailsArr.length>0){
+						  for(var i=0; i<travelSettleExpDetailsArr.length; i++ ){
+							  var travelSettleExpDetailId = travelSettleExpDetailsArr[i];
+							  deleteSelectedTSExpDetails(travelSettleExpDetailId);
+						  }
+					  }
+					  j('#mainContainer').load(pageRef);
+					  j('#mainHeader').load(headerBackBtn);	
+				  }else{
+					  alert("Please select Row");
+				  }	
 			});
 	}
 
@@ -1705,5 +1723,6 @@ function oprationOnWallet(){
 						if(jsonWalletArr.length>0){
 						  saveWalletDetails(jsonWalletArr,jsonWalletIDArr);
 						}
+						j("#walletSource td.selected").hide();
 					});
 			}		
