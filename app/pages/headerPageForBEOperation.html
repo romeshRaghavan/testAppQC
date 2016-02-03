@@ -8,4 +8,20 @@
 <img class="selectionDeleteBEBtns" width="35px" height="25px" src="images/delete.png" id="delete" >
 <img class="selectionSynchBEBtns" width="35px" height="25px" src="images/synch.png" id="synch" >
 <img class="selectionSubmitBEBtns" width="35px" height="25px" src="images/submit.png" id="send" >
+<H4 id="headerId" class="headerposition"></H4>
+<div class="dropdown aligndropdownv" align="right">
+    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+	</button>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
+       <li role="presentation" align="right"><a role="menuitem" tabindex="-1" onclick="synchronizeBEMasterData();">Sync Business Expense Master</a></li>
+       <li role="presentation" align="right"><a role="menuitem" tabindex="-1" onclick="synchronizeTRMasterData();">Sync Travel Master</a></li>
+	   <li role="presentation" align="right"><a role="menuitem" tabindex="-1" onclick="synchronizeTRForTS();">Pull Travel Request to Settle</a></li>
+    </ul>
+</div>
+  <div  style="display:none" id="syncSuccessMsg" class="displaysynctext">
+               
+  </div>
+  <div  style="display:none" id="syncFailureMsg" class="displaysynctext">
+               
+  </div>
 </div>
