@@ -1,7 +1,7 @@
 var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
-var urlPath='http://1.255.255.36:8197/TnEV1_0AWeb/WebService/Login/';
+var urlPath='http://1.255.255.167:8080/TnEV1_0AWeb/WebService/Login/';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -85,7 +85,7 @@ function login()
 
 	 function displayBusinessExp(){
 		 
-		 var headerBackBtn=defaultPagePath+'backbtnPage.html';
+		 var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
      var pageRef=defaultPagePath+'fairClaimTable.html';
 			j(document).ready(function() {
 				j('#mainHeader').load(headerBackBtn);
@@ -96,7 +96,7 @@ function login()
 
 	 function displayTSExp(){
 		 
-		 var headerBackBtn=defaultPagePath+'backbtnPage.html';
+		 var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
 		var pageRef=defaultPagePath+'travelSettlementTable.html';
 			j(document).ready(function() {
 				j('#mainHeader').load(headerBackBtn);
@@ -190,7 +190,7 @@ function isJsonString(str) {
  
 function viewBusinessExp(){
     var pageRef=defaultPagePath+'fairClaimTable.html';
-    var headerBackBtn=defaultPagePath+'backbtnPage.html';
+    var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
 	j(document).ready(function() {
 		
 		j('#mainHeader').load(headerBackBtn);
@@ -203,7 +203,7 @@ function viewBusinessExp(){
 
 function viewTravelSettlementExp(){
     var pageRef=defaultPagePath+'travelSettlementTable.html';
-    var headerBackBtn=defaultPagePath+'backbtnPage.html';
+    var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
 			j(document).ready(function() {
 				
 				j('#loading_Cat').hide();
@@ -376,6 +376,27 @@ function createAccHeadDropDown(jsonAccHeadArr){
 						return result.name;
 				}
 			});
+			
+}
+function createTRAccHeadDropDown(jsonAccHeadArr){
+	var jsonArr = [];
+	if(jsonAccHeadArr != null && jsonAccHeadArr.length > 0){
+		for(var i=0; i<jsonAccHeadArr.length; i++ ){
+			var stateArr = new Array();
+			stateArr = jsonAccHeadArr[i];
+			jsonArr.push({id: stateArr.Label,name: stateArr.Value});
+		}
+	}
+	j("#trAccountHead").select2({
+		data:{ results: jsonArr, text: 'name' },
+		placeholder: "Select Account Head",
+		minimumResultsForSearch: -1,
+		formatResult: function(result) {
+			if ( ! isJsonString(result.id))
+				result.id = JSON.stringify(result.id);
+				return result.name;
+		}
+	});
 }
 
 function createExpNameDropDown(jsonExpNameArr){
@@ -645,6 +666,7 @@ function syncSubmitTravelDetails(){
 	var from_val;
 	var to_id;
 	var to_val;
+	var account_head_id;
 	var travel_mode_id;
 	var travel_category_id;
 	var tvl_mode_rnd_id;
@@ -662,6 +684,12 @@ function syncSubmitTravelDetails(){
 	}else{
 		from_id = '-1';
 	}	
+	
+	if(j("#trAccountHead").select2('data') != null){
+		account_head_id = j("#trAccountHead").select2('data').id;
+	}else{
+		account_head_id = '-1';
+	}
 	
 	if(j("#toCitytown").select2('data') != null){
 		to_id = j("#toCitytown").select2('data').id;
@@ -693,97 +721,99 @@ function syncSubmitTravelDetails(){
 	}
 
 
-if(validatetravelDetails(travel_purpose_id,from_id,to_id,travel_mode_id,travel_category_id,tvl_mode_rnd_id,tvl_category_rnd_id,tvl_date,travel_title)){
+	if(validatetravelDetails(travel_purpose_id,account_head_id,from_id,to_id,travel_mode_id,travel_category_id,tvl_mode_rnd_id,tvl_category_rnd_id,tvl_date,travel_title)){
 
-	 var jsonToSaveTR = new Object();
-	 j('#loading_Cat').show();
-	 jsonToSaveTR["EmployeeId"] = window.localStorage.getItem("EmployeeId");;
-	 jsonToSaveTR["TravelPurpose"] = travel_purpose_id;
-	 jsonToSaveTR["FromLocation"] = from_id;
-	 jsonToSaveTR["FromLocationName"] = from_val;
-	 jsonToSaveTR["ToLocaton"] = to_id;
-	 jsonToSaveTR["ToLocatonName"] = to_val;
-	 jsonToSaveTR["TravelTitle"] = travel_title;
-	  
-	 
-	 var listItineraryTab = document.getElementById('myTab');
-		if(hasClass(listItineraryTab.children[0],"active")){
-			jsonToSaveTR["ItenaryType"] = 'O';
-			jsonToSaveTR["TravelModeId"] = travel_mode_id;
-			jsonToSaveTR["TravelCategoryId"] = travel_category_id;
-			jsonToSaveTR["Hotel"] = tvl_hotel;
-			jsonToSaveTR["TravelTicket"] = tvl_plane;
-			jsonToSaveTR["CarRent"] = tvl_car;
-			
-			if(clickedFlagCar == true){
-				jsonToSaveTR["IsCarRent"] = 'true';
+		 var jsonToSaveTR = new Object();
+		 j('#loading_Cat').show();
+		 jsonToSaveTR["EmployeeId"] = window.localStorage.getItem("EmployeeId");;
+		 jsonToSaveTR["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");;
+		 jsonToSaveTR["TravelPurpose"] = travel_purpose_id;
+		 jsonToSaveTR["AccountHeadId"] = account_head_id;
+		 jsonToSaveTR["FromLocation"] = from_id;
+		 jsonToSaveTR["FromLocationName"] = from_val;
+		 jsonToSaveTR["ToLocaton"] = to_id;
+		 jsonToSaveTR["ToLocatonName"] = to_val;
+		 jsonToSaveTR["TravelTitle"] = travel_title;
+		  
+		 
+		 var listItineraryTab = document.getElementById('myTab');
+			if(hasClass(listItineraryTab.children[0],"active")){
+				jsonToSaveTR["ItenaryType"] = 'O';
+				jsonToSaveTR["TravelModeId"] = travel_mode_id;
+				jsonToSaveTR["TravelCategoryId"] = travel_category_id;
+				jsonToSaveTR["Hotel"] = tvl_hotel;
+				jsonToSaveTR["TravelTicket"] = tvl_plane;
+				jsonToSaveTR["CarRent"] = tvl_car;
+				
+				if(clickedFlagCar == true){
+					jsonToSaveTR["IsCarRent"] = 'true';
+				}else{
+					jsonToSaveTR["IsCarRent"] = 'false';
+				}
+				if(clickedFlagTicket == true){
+					jsonToSaveTR["IsTravelTicket"] = 'true';
+				}else{
+					jsonToSaveTR["IsTravelTicket"] = 'false';
+				}
+				if(clickedFlagHotel == true){
+					jsonToSaveTR["IsHotel"] = 'true';
+				}else{
+					jsonToSaveTR["IsHotel"] = 'false';
+				}
+				jsonToSaveTR["DepartDate"] = tvl_date;
+				jsonToSaveTR["DepartTime"] = '12:20 AM';
+				jsonToSaveTR["ArriveDate"] = tvl_date;
+				jsonToSaveTR["ArriveTime"] = '14:00 AM';
 			}else{
-				jsonToSaveTR["IsCarRent"] = 'false';
-			}
-			if(clickedFlagTicket == true){
-				jsonToSaveTR["IsTravelTicket"] = 'true';
-			}else{
-				jsonToSaveTR["IsTravelTicket"] = 'false';
-			}
-			if(clickedFlagHotel == true){
-				jsonToSaveTR["IsHotel"] = 'true';
-			}else{
-				jsonToSaveTR["IsHotel"] = 'false';
-			}
-			jsonToSaveTR["DepartDate"] = tvl_date;
-			jsonToSaveTR["DepartTime"] = '12:20 AM';
-			jsonToSaveTR["ArriveDate"] = tvl_date;
-			jsonToSaveTR["ArriveTime"] = '14:00 AM';
+				jsonToSaveTR["ItenaryType"] = 'R';
+				jsonToSaveTR["TravelModeId"] = tvl_mode_rnd_id;
+				jsonToSaveTR["TravelCategoryId"] = tvl_category_rnd_id;
+				jsonToSaveTR["Hotel"] = tvl_rnd_hotel;
+				jsonToSaveTR["TravelTicket"] = tvl_rnd_plane;
+				jsonToSaveTR["CarRent"] = tvl_rnd_car;
+				
+				if(clickedCarRound == true){
+					jsonToSaveTR["IsCarRent"] = 'true';
+				}else{
+					jsonToSaveTR["IsCarRent"] = 'false';
+				}
+				if(clickedTicketRound == true){
+					jsonToSaveTR["IsTravelTicket"] = 'true';
+				}else{
+					jsonToSaveTR["IsTravelTicket"] = 'false';
+				}
+				if(clickedHotelRound  == true){
+					jsonToSaveTR["IsHotel"] = 'true';
+				}else{
+					jsonToSaveTR["IsHotel"] = 'false';
+				}
+				jsonToSaveTR["DepartDate"] = tvl__rod_dateTwo;
+				jsonToSaveTR["DepartTime"] = '12:20 AM';
+				jsonToSaveTR["ArriveDate"] = tvl__rod_dateOne;
+				jsonToSaveTR["ArriveTime"] = '14:00 AM';
+		}
+		 
+		 var pageRef=defaultPagePath+'success.html';
+		 j.ajax({
+					  url: urlPath+"SyncTravelRequestDetail",
+					  type: 'POST',
+					  dataType: 'json',
+					  crossDomain: true,
+					  data: JSON.stringify(jsonToSaveTR),
+					  success: function(data) {
+						 successMessage = data.Message;
+						 j('#loading_Cat').hide();
+						 j('#mainContainer').load(pageRef);
+						 appPageHistory.push(pageRef);
+					  },
+					  error:function(data) {
+						j('#loading_Cat').hide();
+						alert("Error: Oops something is wrong, Please Contact System Administer");
+					  }
+			});
 		}else{
-			jsonToSaveTR["ItenaryType"] = 'R';
-			jsonToSaveTR["TravelModeId"] = tvl_mode_rnd_id;
-			jsonToSaveTR["TravelCategoryId"] = tvl_category_rnd_id;
-			jsonToSaveTR["Hotel"] = tvl_rnd_hotel;
-			jsonToSaveTR["TravelTicket"] = tvl_rnd_plane;
-			jsonToSaveTR["CarRent"] = tvl_rnd_car;
-			
-			if(clickedCarRound == true){
-				jsonToSaveTR["IsCarRent"] = 'true';
-			}else{
-				jsonToSaveTR["IsCarRent"] = 'false';
-			}
-			if(clickedTicketRound == true){
-				jsonToSaveTR["IsTravelTicket"] = 'true';
-			}else{
-				jsonToSaveTR["IsTravelTicket"] = 'false';
-			}
-			if(clickedHotelRound  == true){
-				jsonToSaveTR["IsHotel"] = 'true';
-			}else{
-				jsonToSaveTR["IsHotel"] = 'false';
-			}
-			jsonToSaveTR["DepartDate"] = tvl__rod_dateTwo;
-			jsonToSaveTR["DepartTime"] = '12:20 AM';
-			jsonToSaveTR["ArriveDate"] = tvl__rod_dateOne;
-			jsonToSaveTR["ArriveTime"] = '14:00 AM';
-	}
-	 
-	 var pageRef=defaultPagePath+'success.html';
-	 j.ajax({
-				  url: urlPath+"SyncTravelRequestDetail",
-				  type: 'POST',
-				  dataType: 'json',
-				  crossDomain: true,
-				  data: JSON.stringify(jsonToSaveTR),
-				  success: function(data) {
-					 successMessage = data.Message;
-					 j('#loading_Cat').hide();
-					 j('#mainContainer').load(pageRef);
-					 appPageHistory.push(pageRef);
-				  },
-				  error:function(data) {
-					j('#loading_Cat').hide();
-					alert("Error: Oops something is wrong, Please Contact System Administer");
-				  }
-		});
-		}else{
-		return false;
-	}
+			return false;
+		}
 }
 
 function hasClass(ele,cls) {
@@ -925,13 +955,17 @@ function setBooleanValueHotelRoundTextField(){
 		clickedHotelRound = true;
 	}
 }
-function validatetravelDetails(travel_purpose_id,from_id,to_id,travel_mode_id,travel_category_id,tvl_mode_rnd_id,tvl_category_rnd_id,tvl_date,travel_title){
+function validatetravelDetails(travel_purpose_id,account_head_id,from_id,to_id,travel_mode_id,travel_category_id,tvl_mode_rnd_id,tvl_category_rnd_id,tvl_date,travel_title){
 	if(travel_title==""){
 		alert("Travel Title is required");
 		return false;
 	}
 	if(travel_purpose_id == "-1"){
 		alert("Purpose Of Travel is invalid");
+		return false;
+	}
+	if(account_head_id == "-1"){
+		alert("Account Head is invalid");
 		return false;
 	}
 	if(from_id == "-1"){
