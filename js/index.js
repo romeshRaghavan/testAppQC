@@ -119,7 +119,7 @@ function login()
 
 	 function createWallet(){
 		 
-		 var headerBackBtn=defaultPagePath+'backbtnPage.html';
+		 var headerBackBtn=defaultPagePath+'headerPageForWalletOperation.html';
 		 var pageRef=defaultPagePath+'addToWallet.html';
 			j(document).ready(function() {
 				j('#mainHeader').load(headerBackBtn);
@@ -816,7 +816,7 @@ function saveTravelRequestAjax(jsonToSaveTR){
 					  alert(successMessage);
 					  j('#loading_Cat').hide();
 				  }else if(data.Status=="Success"){
-					   successMessage = data.Message;
+					  successMessage = data.Message;
 						j('#loading_Cat').hide();
 						j('#mainContainer').load(pageRef);
 						appPageHistory.push(pageRef);
@@ -828,10 +828,10 @@ function saveTravelRequestAjax(jsonToSaveTR){
 				  }
 				},
 			  error:function(data) {
-				  successMessage = "Error: Oops something is wrong, Please Contact System Administer";
-				  j('#loading_Cat').hide();
-				  j('#mainContainer').load(pageRef);
-				   appPageHistory.push(pageRef);
+				successMessage = "Error: Oops something is wrong, Please Contact System Administer";
+					  j('#loading_Cat').hide();
+					  j('#mainContainer').load(pageRef);
+					  appPageHistory.push(pageRef);
 			  }
 	});
 }
@@ -1765,7 +1765,7 @@ function oprationOnWallet(){
 	j('#synchWallet').on('click', function(e){
 						  var jsonWalletArr = [];
 						  var jsonWalletIDArr = [];
-						  
+						  if(j("#walletSource td.selected").hasClass("selected")){
 						  j("#walletSource td.selected").each(function(index, row) { 
 							var jsonFindWalletData = new Object();
 							var jsonFindWalletId = new Object();
@@ -1787,5 +1787,8 @@ function oprationOnWallet(){
 						if(jsonWalletArr.length>0){
 						  saveWalletDetails(jsonWalletArr,jsonWalletIDArr);
 						}
+					}else{
+					   alert("Tap and select My Receipts Wallet to synch with server.");
+					  }
 					});
 			}		
