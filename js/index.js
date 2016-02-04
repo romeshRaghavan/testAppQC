@@ -1700,6 +1700,7 @@ function oprationONTravelSettlementExp(){
 	
 	
 	function saveWalletDetails(jsonWalletArr,jsonWalletIDArr){
+		
 		 var walletID;
 		 var i = 0;
 		 var headerBackBtn=defaultPagePath+'backbtnPage.html';
@@ -1709,7 +1710,7 @@ function oprationONTravelSettlementExp(){
 			 j.ajax({
 					  url: urlPath+"WalletReceiptsService",
 					  type: 'POST',
-					  dataType: 'json',
+					  dataType: 'json', 
 					  crossDomain: true,
 					  data: JSON.stringify(jsonWalletArr[i]),
 					  success: function(data) {
@@ -1721,6 +1722,7 @@ function oprationONTravelSettlementExp(){
 							document.getElementById("wallet_msg").innerHTML = "Selected File synch successfully.";
 							j('#mainHeader').load(headerBackBtn);
 							j('#wallet_msg').hide().fadeIn('slow').delay(3000).fadeOut('slow');  
+							j("#walletSource td.selected").hide();
 							j('#loading_Cat').hide();
 						}else if(data.SyncStatus=="Error"){
 							document.getElementById("wallet_msg").innerHTML = "Error: Oops something is wrong, Please Contact System Administer";
@@ -1731,7 +1733,7 @@ function oprationONTravelSettlementExp(){
 							document.getElementById("wallet_msg").innerHTML = "File "+data.FileName+" synch fail.";
 							j('#mainHeader').load(headerBackBtn);
 							j('#wallet_msg').hide().fadeIn('slow').delay(3000).fadeOut('slow');
-							j('#loading_Cat').hide();
+							j('#loading_Cat').hide(); 
 						}
 					},
 					  error:function(data) {
@@ -1768,6 +1770,6 @@ function oprationOnWallet(){
 						if(jsonWalletArr.length>0){
 						  saveWalletDetails(jsonWalletArr,jsonWalletIDArr);
 						}
-						j("#walletSource td.selected").hide();
+						
 					});
 			}		
