@@ -734,7 +734,7 @@ function syncSubmitTravelDetails(){
 		 jsonToSaveTR["ToLocaton"] = to_id;
 		 jsonToSaveTR["ToLocatonName"] = to_val;
 		 jsonToSaveTR["TravelTitle"] = travel_title;
-		  
+		   jsonToSaveTR["EntitlementAllowCheck"] = false;
 		 
 		 var listItineraryTab = document.getElementById('myTab');
 			if(hasClass(listItineraryTab.children[0],"active")){
@@ -793,40 +793,38 @@ function syncSubmitTravelDetails(){
 				jsonToSaveTR["ArriveTime"] = '14:00 AM';
 		}
 		 
-		 var pageRef=defaultPagePath+'success.html';
-		 j.ajax({
-					  url: urlPath+"SyncTravelRequestDetail",
-					  type: 'POST',
-					  dataType: 'json',
-					  crossDomain: true,
-					  data: JSON.stringify(jsonToSaveTR),
-					  success: function(data) {
-						  if(data.Status=="Failure"){
-							  successMessage = data.Message;
-							  alert(successMessage);
-							  j('#loading_Cat').hide();
-						  }else if(data.Status=="Success"){
-							   successMessage = data.Message;
-								j('#loading_Cat').hide();
-								j('#mainContainer').load(pageRef);
-								appPageHistory.push(pageRef);
-						  }else{
-							 successMessage = "Error: Oops something is wrong, Please Contact System Administer";
-							  j('#loading_Cat').hide();
-							  j('#mainContainer').load(pageRef);
-							   appPageHistory.push(pageRef);
-						  }
-					},
-					  error:function(data) {
-						j('#loading_Cat').hide();
-						alert("Error: Oops something is wrong, Please Contact System Administer");
-					  }
-			});
+		 saveTravelRequestAjax(jsonToSaveTR);
 		}else{
 			return false;
 		}
 }
-
+function saveTravelRequestAjax(jsonToSaveTR){
+	var pageRef=defaultPagePath+'success.html';
+	 j.ajax({
+			  url: urlPath+"SyncTravelRequestDetail",
+			  type: 'POST',
+			  dataType: 'json',
+			  crossDomain: true,
+			  data: JSON.stringify(jsonToSaveTR),
+			  success: function(data) {
+			  
+			  if(data.hasOwnProperty('IsEntitlementExceed')){
+					setTREntitlementExceedMessage(data,jsonToSaveTR);
+					 j('#loading_Cat').hide();
+				}else{
+					successMessage = data.Message;
+					 j('#loading_Cat').hide();
+					 j('#mainContainer').load(pageRef);
+					 appPageHistory.push(pageRef);
+				}
+				 
+			  },
+			  error:function(data) {
+				j('#loading_Cat').hide();
+				alert("Error: Oops something is wrong, Please Contact System Administer");
+			  }
+	});
+}
 function hasClass(ele,cls) {
 	  return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
 }
@@ -1283,8 +1281,18 @@ function setDelayMessage(returnJsonData,jsonToBeSend,busExpDetailsArr){
 					}
 			 jsonToBeSend["DelayAllowCheck"]=true;
 			 callSendForApprovalServiceForBE(jsonToBeSend,busExpDetailsArr,pageRef);
-			}			
-		}
+		}			
+}
+
+function setTREntitlementExceedMessage(returnJsonData,jsonToBeSend){
+		var pageRef=defaultPagePath+'success.html';
+		if(confirm("This voucher has exceeded Entitlements. Do you want to proceed?")==false){
+					return false;
+				}
+		 jsonToBeSend["EntitlementAllowCheck"]=true;
+		 saveTravelRequestAjax(jsonToBeSend);
+				
+}
 
 		
 	 function cerateTravelSettlement(){
@@ -1700,7 +1708,6 @@ function oprationONTravelSettlementExp(){
 	
 	
 	function saveWalletDetails(jsonWalletArr,jsonWalletIDArr){
-		
 		 var walletID;
 		 var i = 0;
 		 var headerBackBtn=defaultPagePath+'backbtnPage.html';
@@ -1710,7 +1717,7 @@ function oprationONTravelSettlementExp(){
 			 j.ajax({
 					  url: urlPath+"WalletReceiptsService",
 					  type: 'POST',
-					  dataType: 'json', 
+					  dataType: 'json',
 					  crossDomain: true,
 					  data: JSON.stringify(jsonWalletArr[i]),
 					  success: function(data) {
@@ -1721,8 +1728,8 @@ function oprationONTravelSettlementExp(){
 							 }
 							document.getElementById("wallet_msg").innerHTML = "Selected File synch successfully.";
 							j('#mainHeader').load(headerBackBtn);
-							j('#wallet_msg').hide().fadeIn('slow').delay(3000).fadeOut('slow');  
 							j("#walletSource td.selected").hide();
+							j('#wallet_msg').hide().fadeIn('slow').delay(3000).fadeOut('slow');  
 							j('#loading_Cat').hide();
 						}else if(data.SyncStatus=="Error"){
 							document.getElementById("wallet_msg").innerHTML = "Error: Oops something is wrong, Please Contact System Administer";
@@ -1733,7 +1740,7 @@ function oprationONTravelSettlementExp(){
 							document.getElementById("wallet_msg").innerHTML = "File "+data.FileName+" synch fail.";
 							j('#mainHeader').load(headerBackBtn);
 							j('#wallet_msg').hide().fadeIn('slow').delay(3000).fadeOut('slow');
-							j('#loading_Cat').hide(); 
+							j('#loading_Cat').hide();
 						}
 					},
 					  error:function(data) {
@@ -1770,6 +1777,5 @@ function oprationOnWallet(){
 						if(jsonWalletArr.length>0){
 						  saveWalletDetails(jsonWalletArr,jsonWalletIDArr);
 						}
-						
 					});
 			}		
