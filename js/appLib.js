@@ -1098,14 +1098,12 @@ function fetchWalletImage() {
 							j('<td></td>').attr({ class: ["walletattach"].join(' ') }).html('<text style="display: none">'+row.walletAttachment+'</text>'+'<p id="para" style="display: none">'+row.walletId+'</p>'+'<img src="'+row.walletAttachment+'">').appendTo(rowsWallet);
 							
 					}	
-				
-					j("#walletSource td").click(function(){
+				j("#walletSource td").click(function(){
 					headerOprationBtn = defaultPagePath+'headerPageForWalletOperation.html';
 					if(j(this).hasClass( "selected")){
 						var pageRef=defaultPagePath+'addToWallet.html';
-						var headerBackBtn=defaultPagePath+'backbtnPage.html';
 							j(this).removeClass('selected');
-							j('#mainHeader').load(headerBackBtn);
+							j('#mainHeader').load(headerOprationBtn);
 							j('#mainContainer').load(pageRef);
 						}else{
 							j('#mainHeader').load(headerOprationBtn);
