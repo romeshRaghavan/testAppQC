@@ -1518,7 +1518,7 @@ function oprationOnExpenseClaim(){
 					  }
 					  j('#mainContainer').load(pageRef);
 				  }else{
-					  alert("Tap and select Expenses to delete with app.");
+					  alert("Tap and select Expenses to delete.");
 				  }
 			});
 	j('#synch').on('click', function(e){
@@ -1644,7 +1644,7 @@ function oprationONTravelSettlementExp(){
 					  j('#mainContainer').load(pageRef);
 					  j('#mainHeader').load(headerBackBtn);	
 				  }else{
-					 alert("Tap and select Expenses to delete with app.");
+					 alert("Tap and select Expenses to delete.");
 				  }	
 			});
 	}
