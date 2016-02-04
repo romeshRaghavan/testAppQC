@@ -1777,9 +1777,9 @@ function oprationOnWallet(){
 							var data = walletData.replace(/data:image\/(png|jpg|jpeg);base64,/, '');
 							//For Android image save
 							//var data = data.replace(/data:base64,/, '');
-							jsonFindWalletData["fileName"] = "walletFile_"+j(this).find('#para').text()+".jpeg";
+							jsonFindWalletData["fileName"] = "walletFile_"+window.localStorage.getItem("EmployeeId")+"_"+j(this).find('#para').text()+".jpeg";
 							jsonFindWalletData["fileData"] = data; 
-							jsonFindWalletData["employeeId"] = window.localStorage.getItem("EmployeeId");;
+							jsonFindWalletData["employeeId"] = window.localStorage.getItem("EmployeeId");
 							jsonWalletArr.push(jsonFindWalletData);
 							jsonWalletIDArr.push(jsonFindWalletId);
 							
