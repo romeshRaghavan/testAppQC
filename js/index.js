@@ -261,34 +261,34 @@ function saveTravelSettleExpDetails(jsonTSArr,tsExpDetailsArr){
 	 jsonToSaveTS["expenseDetails"] = jsonTSArr;
 	 var pageRef=defaultPagePath+'success.html';
 	j.ajax({
-		  url: urlPath+"SyncSettlementExpensesWebService",
-		  type: 'POST',
-		  dataType: 'json',
-		  crossDomain: true,
-		  data: JSON.stringify(jsonToSaveTS),
-		  success: function(data) {
-			if(data.Status=="Success"){
-			successMessage = "Record(s) has been synchronized successfully.";
-			 for(var i=0; i<tsExpDetailsArr.length; i++ ){
-				var travelSettleExpDetailId = tsExpDetailsArr[i];
-				deleteSelectedTSExpDetails(travelSettleExpDetailId);
-			 }
-			 j('#mainHeader').load(headerBackBtn);
-			 j('#mainContainer').load(pageRef);
-			 }else if(data.Status=="Error"){
-				successMessage = "Oops!! Something went wrong. Please contact system administrator.";
-				j('#mainHeader').load(headerBackBtn);
-				j('#mainContainer').load(pageRef);
-			 }else{
-				successMessage = "Error in synching expenses. Please contact system administrator.";
-				j('#mainHeader').load(headerBackBtn);
-				j('#mainContainer').load(pageRef);
-			 }
-		  },
-		  error:function(data) {
-			alert("Error: Oops something is wrong, Please Contact System Administer");
-		  }
-	});
+				  url: urlPath+"SyncSettlementExpensesWebService",
+				  type: 'POST',
+				  dataType: 'json',
+				  crossDomain: true,
+				  data: JSON.stringify(jsonToSaveTS),
+				  success: function(data) {
+				  	if(data.Status=="Success"){
+				  	successMessage = "Record(s) has been synchronized successfully.";
+					 for(var i=0; i<tsExpDetailsArr.length; i++ ){
+						var travelSettleExpDetailId = tsExpDetailsArr[i];
+						deleteSelectedTSExpDetails(travelSettleExpDetailId);
+					 }
+					 j('#mainHeader').load(headerBackBtn);
+					 j('#mainContainer').load(pageRef);
+					 }else if(data.Status=="Error"){
+						successMessage = "Oops!! Something went wrong. Please contact system administrator.";
+						j('#mainHeader').load(headerBackBtn);
+					 	j('#mainContainer').load(pageRef);
+					 }else{
+						successMessage = "Error in synching expenses. Please contact system administrator.";
+						j('#mainHeader').load(headerBackBtn);
+					 	j('#mainContainer').load(pageRef);
+					 }
+				  },
+				  error:function(data) {
+					alert("Error: Oops something is wrong, Please Contact System Administer");
+				  }
+			});
 }
 
 function sendForApprovalBusinessDetails(jsonBEArr,busExpDetailsArr,accountHeadID){
@@ -793,10 +793,10 @@ function syncSubmitTravelDetails(){
 				jsonToSaveTR["ArriveTime"] = '14:00 AM';
 		}
 		 
-		saveTravelRequestAjax(jsonToSaveTR);
-	}else{
-		return false;
-	}
+		 saveTravelRequestAjax(jsonToSaveTR);
+		}else{
+			return false;
+		}
 }
 function saveTravelRequestAjax(jsonToSaveTR){
 	var pageRef=defaultPagePath+'success.html';
@@ -812,7 +812,8 @@ function saveTravelRequestAjax(jsonToSaveTR){
 							setTREntitlementExceedMessage(data,jsonToSaveTR);
 							 j('#loading_Cat').hide();
 						}
-					 
+					  successMessage = data.Message;
+					  alert(successMessage);
 					  j('#loading_Cat').hide();
 				  }else if(data.Status=="Success"){
 					  successMessage = data.Message;
@@ -1294,26 +1295,26 @@ function setDelayMessage(returnJsonData,jsonToBeSend,busExpDetailsArr){
 }
 
 function setTREntitlementExceedMessage(returnJsonData,jsonToBeSend){
-	var pageRef=defaultPagePath+'success.html';
+		var pageRef=defaultPagePath+'success.html';
 	if(confirm(returnJsonData.Message+".\nThis voucher has exceeded Entitlements. Do you want to proceed?")==false){
 		return false;
 	}
-	jsonToBeSend["EntitlementAllowCheck"]=true;
-	saveTravelRequestAjax(jsonToBeSend);
+		 jsonToBeSend["EntitlementAllowCheck"]=true;
+		 saveTravelRequestAjax(jsonToBeSend);
 				
 }
 
 		
-function cerateTravelSettlement(){
-	
-	  var pageRef=defaultPagePath+'addTravelSettlement.html';
-	  var headerBackBtn=defaultPagePath+'backbtnPage.html';
-		j(document).ready(function() {
-			j('#mainHeader').load(headerBackBtn);
-			j('#mainContainer').load(pageRef);
-		});
-	appPageHistory.push(pageRef);
-}
+	 function cerateTravelSettlement(){
+		
+	      var pageRef=defaultPagePath+'addTravelSettlement.html';
+	      var headerBackBtn=defaultPagePath+'backbtnPage.html';
+			j(document).ready(function() {
+				j('#mainHeader').load(headerBackBtn);
+				j('#mainContainer').load(pageRef);
+			});
+      appPageHistory.push(pageRef);
+	 }
 function createTravelExpenseNameDropDown(jsonExpenseNameArr){
 	var jsonExpArr = [];
 	if(jsonExpenseNameArr != null && jsonExpenseNameArr.length > 0){
@@ -1719,7 +1720,7 @@ function oprationONTravelSettlementExp(){
 	function saveWalletDetails(jsonWalletArr,jsonWalletIDArr){
 		 var walletID;
 		 var i = 0;
-		 var headerBackBtn=defaultPagePath+'backbtnPage.html';
+		 var headerBackBtn=defaultPagePath+'headerPageForWalletOperation.html';
 		 var pageRef=defaultPagePath+'addToWallet.html';
 		 j('#loading_Cat').show();
 		 for(i; i<jsonWalletArr.length; i++ ){
