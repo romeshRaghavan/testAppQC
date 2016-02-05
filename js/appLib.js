@@ -255,7 +255,8 @@ function saveBusinessDetails(status){
 					document.getElementById('expNarration').value = "";
 					document.getElementById('expUnit').value ="";
 					document.getElementById('expAmt').value = "";
-					
+					smallImage.style.display = 'none';
+					smallImage.src = "";
 					j('#errorMsgArea').children('span').text("");
 					j('#accountHead').select2('data', '');
 					j('#expenseName').select2('data', '');
@@ -362,6 +363,8 @@ function saveTravelSettleDetails(status){
 					j('#fromCitytown').select2('data', '');
 					j("label[for='startDate']").html("");
 					j("label[for='endDate']").html("");
+					smallImage.style.display = 'none';
+					smallImage.src = "";
 					j('#loading_Cat').hide();
 					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
