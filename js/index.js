@@ -1504,7 +1504,7 @@ function oprationOnExpenseClaim(){
 							  sendForApprovalBusinessDetails(jsonExpenseDetailsArr,busExpDetailsArr,accountHeadIdToBeSent);
 						  }
 					  }else{
-						 alert("Tap and select Expenses to synch with server.");
+						 alert("Tap and select Expenses to send for Approval with server.");
 					  }
 			});
 			
