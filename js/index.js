@@ -1,7 +1,7 @@
 var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
-var urlPath='http://leica.expenzing.com/TnEV1_0AWeb/WebService/Login/';
+var urlPath='http://fabercastell.expenzing.com/TnEV1_0AWeb/WebService/Login/';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
