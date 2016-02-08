@@ -1081,7 +1081,7 @@ function deleteSelectedExpDetails(businessExpDetailId){
 					  
 function fetchWalletImage() {
 			var rowsWallet;
-			mytable = j('<table></table>').attr({ id: "walletSource",class: ["table","table-striped","table-bordered"].join(' ') });
+			mytable = j('<table></table>').attr({ id: "walletSource",class: ["table","table-striped","table-bordered-wallet"].join(' ') });
 		 
 			mydb.transaction(function(t) {
 				
