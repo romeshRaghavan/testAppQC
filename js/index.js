@@ -1791,4 +1791,8 @@ function oprationOnWallet(){
 					   alert("Tap and select My Receipts Wallet to synch with server.");
 					  }
 					});
-			}		
+			}
+
+function notActivated(){
+	alert("Not Activated!");
+}			
