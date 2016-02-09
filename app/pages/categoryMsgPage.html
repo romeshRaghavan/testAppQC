@@ -1,6 +1,7 @@
 <script>
 var headerValue=headerMsg;
 document.getElementById("headerId").innerHTML = headerValue;
+hideTRMenus();
 </script>
 <div class="topfixednavigate" >
 <img class="expenzingMainImg" src="images/Expenzing_Square.png"/>
@@ -9,9 +10,11 @@ document.getElementById("headerId").innerHTML = headerValue;
 			<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
 			</button>
 			<ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
-			  <li role="presentation"><a role="menuitem" tabindex="-1" onclick="synchronizeBEMasterData()">Sync Business Expense Master</a></li>
-			   <li role="presentation"><a role="menuitem" tabindex="-1" onclick="notActivated();">Sync Travel Master</a></li>
-			    <li role="presentation"><a role="menuitem" tabindex="-1" onclick="notActivated();">Pull Travel Request to Settle</a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" onclick="synchronizeBEMasterData();">Sync Business Expense Master</a></li>
+			   <div id="TrRoleID">
+			  <li role="presentation"><a role="menuitem" tabindex="-1" onclick="synchronizeTRMasterData();">Sync Travel Master</a></li>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" onclick="synchronizeTRForTS();">Pull Travel Request to Settle</a></li>
+			  </div>
 			</ul>
 		</div>
 		<div  style="display:none" id="syncSuccessMsg" class="displaysynctext">
