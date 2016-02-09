@@ -14,12 +14,12 @@
     <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
 	</button>
     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
-       <li role="presentation" align="right"><a role="menuitem" tabindex="-1" onclick="synchronizeBEMasterData();">Sync Business Expense Master</a></li>
-	   <div id="TrRoleID">
-       <li role="presentation" align="right"><a role="menuitem" tabindex="-1" onclick="synchronizeTRMasterData();">Sync Travel Master</a></li>
-	   <li role="presentation" align="right"><a role="menuitem" tabindex="-1" onclick="synchronizeTRForTS();">Pull Travel Request to Settle</a></li>
-	   </div>
-    </ul>
+			  <li role="presentation"><a role="menuitem" tabindex="-1" onclick="synchronizeBEMasterData()">Sync Business Expense Master</a></li>
+			   <div id="TrRoleID" style="font-weight: 400;padding: 3px 20px;line-height: 1.42857143;text-align: left;white-space: nowrap;">
+			  <li role="presentation"><a role="menuitem"  style="color: #333;" tabindex="-1" onclick="synchronizeTRMasterData();">Sync Travel Master</a></li>
+			  <li role="presentation"><a role="menuitem" style="color: #333;" tabindex="-1" onclick="synchronizeTRForTS();">Pull Travel Request to Settle</a></li>
+			  </div>
+	</ul>
   </div>
   <div  style="display:none" id="syncSuccessMsg" class="displaysynctext">
                
