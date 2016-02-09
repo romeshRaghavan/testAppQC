@@ -1,7 +1,7 @@
 var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
-var urlPath='http://fabercastell.expenzing.com/TnEV1_0AWeb/WebService/Login/';
+var urlPath='http://1.255.255.36:8197/TnEV1_0AWeb/WebService/Login/';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -1791,8 +1791,20 @@ function oprationOnWallet(){
 					   alert("Tap and select My Receipts Wallet to synch with server.");
 					  }
 					});
-			}
+			}		
+			
+function hideTRIcons(){
+	if(window.localStorage.getItem("TrRole") == "true"){
+		document.getElementById('CategoryTrRoleID').style.display="block";		
+	}else{
+		document.getElementById('CategoryTrRoleID').style.display="none";
+	}
+}
 
-function notActivated(){
-	alert("Not Activated!");
-}			
+function hideTRMenus(){
+	if(window.localStorage.getItem("TrRole") == "true"){
+		document.getElementById('TrRoleID').style.display="block";
+	}else{
+		document.getElementById('TrRoleID').style.display="none";
+	}
+}
