@@ -1053,6 +1053,7 @@ function fetchTrvlTypeList(transaction, results) {
 
 
 function setUserSessionDetails(val){
+	 window.localStorage.setItem("TrRole",val.TrRole);
 	 window.localStorage.setItem("EmployeeId",val.EmpId);
 	 window.localStorage.setItem("FirstName",val.FirstName);
 	 window.localStorage.setItem("LastName",val.LastName);
