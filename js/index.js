@@ -47,10 +47,12 @@ function login()
               appPageHistory.push(pageRef);
 			  //addEmployeeDetails(data);
 			  setUserSessionDetails(data);
+			  if(data.TrRole){
+				synchronizeTRMasterData();
+				synchronizeTRForTS();  
+			  }
 			  synchronizeBEMasterData();
-			  synchronizeTRMasterData();
-			  synchronizeTRForTS();
-         	}else if(data.Status == 'Failure'){
+			}else if(data.Status == 'Failure'){
  			   successMessage = data.Message;
 			   if(successMessage.length == 0){
 					successMessage = "Wrong UserName or Password";
