@@ -1,7 +1,7 @@
 var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
-var urlPath='http://live.nexstepapps.com:85/nexstepems/WebService/Login/';
+var urlPath='https://demo.nexstepapps.com:474/nexgendemo/WebService/Login/';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
