@@ -1,7 +1,7 @@
 var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
-var urlPath='http://1.255.255.36:8197/TnEV1_0AWeb/WebService/Login/';
+var urlPath='http://1.255.255.188:8080/TnEV1_0AWeb/WebService/Login/';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -16,6 +16,7 @@ var expenseClaimDates=new Object();
 var successMessage;
 var pictureSource,destinationType;
 var camerastatus;
+var voucherType;
 
 j(document).ready(function(){ 
 document.addEventListener("deviceready",loaded,false);
@@ -1668,22 +1669,32 @@ function oprationONTravelSettlementExp(){
 	
 	function onPhotoDataSuccess(imageData) { 
        
-        smallImage.style.display = 'block';       
-        document.getElementById('image2').files[0] = "data:image/jpeg;base64," + imageData;
+       if(voucherType == 'wallet'){
+       	smallImageWallet.style.display = 'block';       
+        document.getElementById('imageWallet').files[0] = "data:image/jpeg;base64," + imageData;
 		
-		smallImage.src = "data:image/jpeg;base64," + imageData;
+		smallImageWallet.src = "data:image/jpeg;base64," + imageData;
 		if(camerastatus=='1')
 		{
 		saveWalletAttachment(0);	
 		}
+       }else if(voucherType == 'BE'){
+       	smallImageBE.style.display = 'block';       
+        document.getElementById('imageBE').files[0] = "data:image/jpeg;base64," + imageData;
+		
+		smallImageBE.src = "data:image/jpeg;base64," + imageData;
+       }
+        
 		
 		
     }
-	function capturePhoto(status) {
-	
+	function capturePhoto(status,voucher_type) {
+
+	voucherType = voucher_type;	
 		navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 10,
             destinationType: 0 });
-		camerastatus = status;	
+		camerastatus = status;
+		
 	}
 	 
 	function onFail(message) {
@@ -1694,22 +1705,23 @@ function oprationONTravelSettlementExp(){
       // console.log(imageURI);
       // Get image handle
       //
-	    smallImage.style.display = 'block';
+      if(voucherType == 'wallet'){
+		smallImageWallet.style.display = 'block';
 
-        // Show the captured photo
-        // The in-line CSS rules are used to resize the image
-        
-        document.getElementById('image2').files[0] = "data:image/jpeg;base64," + imageURI;
+        document.getElementById('imageWallet').files[0] = "data:image/jpeg;base64," + imageURI;
 		
-		smallImage.src = "data:image/jpeg;base64," + imageURI;
+		smallImageWallet.src = "data:image/jpeg;base64," + imageURI;
 		
 		 if(camerastatus=='1')
 		{			
 		saveWalletAttachment(0);	
 		}
+      }
+	    
     }
 	
-	function getPhoto(source,status) {
+	function getPhoto(source,status,voucher_type) {
+		voucherType = voucher_type;	
       // Retrieve image file location from specified source
 	 navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
         destinationType: 0,

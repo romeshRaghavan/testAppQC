@@ -234,13 +234,14 @@ function saveBusinessDetails(status){
 			currency_id = '-1';
 		}	
 		
-		var file = document.getElementById('image2').files[0];
+		var file = document.getElementById('imageBE').files[0];
 		
 		if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){
 		 
 		j('#loading_Cat').show();			  
 		  
 		  if(file==undefined){
+		  	alert("file undefinded");
 		  	file="";
 			}
 			
@@ -1131,14 +1132,15 @@ function saveWalletAttachment(status){
 	if (mydb) {
 		//get the values of the text inputs
       
-		var file = document.getElementById('image2').files[0];
+		var file = document.getElementById('imageWallet').files[0];
+		
 	if (file != "") {
             mydb.transaction(function (t) {
                 t.executeSql("INSERT INTO walletMst (walletAttachment) VALUES (?)", 
 											[file]);
-								
+				alert("file not empty");
 				if(status == "0"){
-					document.getElementById('image2').value ="";	
+					document.getElementById('imageWallet').value ="";	
 					createWallet();					
 				}else{
 				    createWallet();
