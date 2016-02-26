@@ -39,47 +39,7 @@ var app = {
 		  document.addEventListener("backbutton", function(e){
 			 goBackEvent();
 		  }, false);
-		  },
-	takePicture: function() {
-      navigator.camera.getPicture( function( imageURI ) {
-      var smallImages=document.getElementById('smallImage');
-         smallImages.style.display = 'block';
-
-        // Show the captured photo
-        // The in-line CSS rules are used to resize the image
-      
-        document.getElementById('image2').files[0] = "data:image/jpeg;base64," + imageURI;
-        smallImages.src = "data:image/jpeg;base64," + imageURI;
-      },
-      function( message ) {
-        alert( message );
-      },
-      {
-        quality: 50,
-        destinationType: 0
-      });
-    },
-    takePictureGallery: function(source) {
-
-      navigator.camera.getPicture( function( imageURI ) {
-      var smallImages=document.getElementById('smallImage');
-         smallImages.style.display = 'block';
-         
-        // Show the captured photo
-        // The in-line CSS rules are used to resize the image
-        
-        document.getElementById('image2').files[0] = "data:image/jpeg;base64," + imageURI;
-      	smallImages.src = "data:image/jpeg;base64," + imageURI;
-      },
-      function( message ) {
-        alert( message );
-      },
-      {
-        quality: 50,
-        destinationType: 0,
-         sourceType: source 
-      });
-	}
+		  }
 };
 
 function goBack() {
@@ -249,15 +209,16 @@ function saveBusinessDetails(status){
 				t.executeSql("INSERT INTO businessExpDetails (expDate, accHeadId,expNameId,expFromLoc, expToLoc, expNarration, expUnit,expAmt,currencyId,isEntitlementExceeded,busExpAttachment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
 											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file]);
 								
-				if(status == "0"){ 
+				if(status == "0"){
+				alert("inside if") ;
 					document.getElementById('expDate').value ="";
 					document.getElementById('expFromLoc').value = "";
 					document.getElementById('expToLoc').value = "";
 					document.getElementById('expNarration').value = "";
 					document.getElementById('expUnit').value ="";
 					document.getElementById('expAmt').value = "";
-					smallImage.style.display = 'none';
-					smallImage.src = "";
+					smallImageBE.style.display = 'none';
+					smallImageBE.src = "";
 					j('#errorMsgArea').children('span').text("");
 					j('#accountHead').select2('data', '');
 					j('#expenseName').select2('data', '');
@@ -340,12 +301,13 @@ function saveTravelSettleDetails(status){
 			cityTown_id = '-1';
 		}	
 		
-		var file = document.getElementById('image2').files[0];
+		var file = document.getElementById('imageTS').files[0];
 		
 		if(validateTSDetails(exp_date,exp_narration,exp_unit,exp_amt,travelRequestId,exp_name_id,currency_id,travelMode_id,travelCategory_id,cityTown_id)){
 		j('#loading_Cat').show();
 		
 		  if(file==undefined){
+		  	alert("file undefined");
 		  	file="";
 		  }
 		  mydb.transaction(function (t) {
@@ -364,8 +326,8 @@ function saveTravelSettleDetails(status){
 					j('#fromCitytown').select2('data', '');
 					j("label[for='startDate']").html("");
 					j("label[for='endDate']").html("");
-					smallImage.style.display = 'none';
-					smallImage.src = "";
+					smallImageTS.style.display = 'none';
+					smallImageTS.src = "";
 					j('#loading_Cat').hide();
 					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');

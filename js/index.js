@@ -1683,6 +1683,11 @@ function oprationONTravelSettlementExp(){
         document.getElementById('imageBE').files[0] = "data:image/jpeg;base64," + imageData;
 		
 		smallImageBE.src = "data:image/jpeg;base64," + imageData;
+       }else if(voucherType == 'TS'){
+       	smallImageTS.style.display = 'block';       
+        document.getElementById('imageTS').files[0] = "data:image/jpeg;base64," + imageData;
+		
+		smallImageTS.src = "data:image/jpeg;base64," + imageData;
        }
         
 		
@@ -1716,7 +1721,21 @@ function oprationONTravelSettlementExp(){
 		{			
 		saveWalletAttachment(0);	
 		}
-      }
+       }else if(voucherType == 'BE'){
+		smallImageBE.style.display = 'block';
+
+        document.getElementById('imageBE').files[0] = "data:image/jpeg;base64," + imageURI;
+		
+		smallImageBE.src = "data:image/jpeg;base64," + imageURI;
+		
+		}else if(voucherType == 'TS'){
+		smallImageTS.style.display = 'block';
+
+        document.getElementById('imageTS').files[0] = "data:image/jpeg;base64," + imageURI;
+		
+		smallImageTS.src = "data:image/jpeg;base64," + imageURI;
+		
+		}
 	    
     }
 	
