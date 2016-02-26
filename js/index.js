@@ -17,7 +17,7 @@ var successMessage;
 var pictureSource,destinationType;
 var camerastatus;
 var voucherType;
-
+var fileTemp;
 j(document).ready(function(){ 
 document.addEventListener("deviceready",loaded,false);
 });
@@ -1680,13 +1680,12 @@ function oprationONTravelSettlementExp(){
 		}
        }else if(voucherType == 'BE'){
        	smallImageBE.style.display = 'block';       
-        document.getElementById('imageBE').files[0] = "data:image/jpeg;base64," + imageData;
+        fileTemp = "data:image/jpeg;base64," + imageData;
 		
 		smallImageBE.src = "data:image/jpeg;base64," + imageData;
        }else if(voucherType == 'TS'){
        	smallImageTS.style.display = 'block';       
-        document.getElementById('imageTS').files[0] = "data:image/jpeg;base64," + imageData;
-		
+        fileTemp = "data:image/jpeg;base64," + imageData;
 		smallImageTS.src = "data:image/jpeg;base64," + imageData;
        }
         
@@ -1742,7 +1741,7 @@ function oprationONTravelSettlementExp(){
 	function getPhoto(source,status,voucher_type) {
 		voucherType = voucher_type;	
       // Retrieve image file location from specified source
-	 navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+	 navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 10, 
         destinationType: 0,
         sourceType: source });
 		camerastatus = status;

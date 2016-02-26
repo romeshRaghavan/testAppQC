@@ -193,8 +193,7 @@ function saveBusinessDetails(status){
 		}else{
 			currency_id = '-1';
 		}	
-		
-		var file = document.getElementById('imageBE').files[0];
+		var file = fileTemp; 
 		
 		if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){
 		 
@@ -301,8 +300,8 @@ function saveTravelSettleDetails(status){
 			cityTown_id = '-1';
 		}	
 		
-		var file = document.getElementById('imageTS').files[0];
-		
+		var file = fileTemp;
+
 		if(validateTSDetails(exp_date,exp_narration,exp_unit,exp_amt,travelRequestId,exp_name_id,currency_id,travelMode_id,travelCategory_id,cityTown_id)){
 		j('#loading_Cat').show();
 		
@@ -1100,8 +1099,7 @@ function saveWalletAttachment(status){
             mydb.transaction(function (t) {
                 t.executeSql("INSERT INTO walletMst (walletAttachment) VALUES (?)", 
 											[file]);
-				alert("file not empty");
-				if(status == "0"){
+                if(status == "0"){
 					document.getElementById('imageWallet').value ="";	
 					createWallet();					
 				}else{
