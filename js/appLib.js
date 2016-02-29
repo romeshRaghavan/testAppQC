@@ -173,6 +173,7 @@ function saveBusinessDetails(status){
 		var exp_name_val;
 		var currency_id;
 		var currency_val;
+		var file;
 		if(j("#accountHead").select2('data') != null){
 			acc_head_id = j("#accountHead").select2('data').id;
 			acc_head_val = j("#accountHead").select2('data').name;
@@ -192,15 +193,25 @@ function saveBusinessDetails(status){
 			currency_val = j("#currency").select2('data').name;
 		}else{
 			currency_id = '-1';
-		}	
-		var file = fileTemp; 
+		}
+		
+		if(fileTempGalleryBE ==undefined || fileTempGalleryBE ==""){
+		
+		}else{
+			file = fileTempGalleryBE;
+		}
+		
+		if(fileTempCameraBE ==undefined || fileTempCameraBE ==""){
+		
+		}else{
+			file = fileTempCameraBE; 
+		}
 		
 		if(validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id)){
 		 
 		j('#loading_Cat').show();			  
 		  
-		  if(file==undefined){
-		  	alert("file undefinded");
+		  if(file ==undefined){
 		  	file="";
 			}
 			
@@ -225,6 +236,7 @@ function saveBusinessDetails(status){
 					j('#loading_Cat').hide();
 					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
+					resetImageData();
 					//createBusinessExp();
 				}else{
 					viewBusinessExp();
@@ -261,6 +273,7 @@ function saveTravelSettleDetails(status){
 		var travelCategory_val;
 		var cityTown_id;
 		var cityTown_val;
+		var file;
 		if(j("#travelRequestName").select2('data') != null){
 			travelRequestId = j("#travelRequestName").select2('data').id;
 			travelRequestNo = j("#travelRequestName").select2('data').name;
@@ -299,15 +312,23 @@ function saveTravelSettleDetails(status){
 		}else{
 			cityTown_id = '-1';
 		}	
+		if(fileTempGalleryTS ==undefined || fileTempGalleryTS ==""){
 		
-		var file = fileTemp;
-
+		}else{
+			file = fileTempGalleryTS; 
+		}
+		
+		if(fileTempCameraTS ==undefined || fileTempCameraTS ==""){
+		
+		}else{
+			file = fileTempCameraTS; 
+		}
+		
 		if(validateTSDetails(exp_date,exp_narration,exp_unit,exp_amt,travelRequestId,exp_name_id,currency_id,travelMode_id,travelCategory_id,cityTown_id)){
 		j('#loading_Cat').show();
 		
 		  if(file==undefined){
-		  	alert("file undefined");
-		  	file="";
+		   file="";
 		  }
 		  mydb.transaction(function (t) {
 				t.executeSql("INSERT INTO travelSettleExpDetails  (expDate, travelRequestId,expNameId,expNarration, expUnit,expAmt,currencyId,travelModeId,travelCategoryId,cityTownId,tsExpAttachment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
@@ -330,7 +351,7 @@ function saveTravelSettleDetails(status){
 					j('#loading_Cat').hide();
 					document.getElementById("syncSuccessMsg").innerHTML = "Expenses added successfully.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
-					
+					resetImageData();
 				}else{
 					viewTravelSettlementExp();
 				}

@@ -17,7 +17,10 @@ var successMessage;
 var pictureSource,destinationType;
 var camerastatus;
 var voucherType;
-var fileTemp;
+var fileTempCameraBE ="";
+var fileTempCameraTS ="";
+var fileTempGalleryBE ="";
+var fileTempGalleryTS ="";
 j(document).ready(function(){ 
 document.addEventListener("deviceready",loaded,false);
 });
@@ -75,7 +78,7 @@ function login()
  }
 
   function createBusinessExp(){
-	
+	resetImageData();
 	var headerBackBtn=defaultPagePath+'backbtnPage.html';
     var pageRef=defaultPagePath+'addAnExpense.html';
 			j(document).ready(function() {
@@ -200,11 +203,13 @@ function viewBusinessExp(){
 		j('#mainContainer').load(pageRef);
 	});
     appPageHistory.push(pageRef);
+    resetImageData();
     j('#loading_Cat').hide();
 }
 
 
 function viewTravelSettlementExp(){
+	resetImageData();
     var pageRef=defaultPagePath+'travelSettlementTable.html';
     var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
 			j(document).ready(function() {
@@ -816,7 +821,7 @@ function saveTravelRequestAjax(jsonToSaveTR){
 							 j('#loading_Cat').hide();
 						}
 					  successMessage = data.Message;
-					  alert(successMessage);
+					  
 					  j('#loading_Cat').hide();
 				  }else if(data.Status=="Success"){
 					  successMessage = data.Message;
@@ -1668,11 +1673,10 @@ function oprationONTravelSettlementExp(){
             }
 	
 	function onPhotoDataSuccess(imageData) { 
-       
+       resetImageData();
        if(voucherType == 'wallet'){
        	smallImageWallet.style.display = 'block';       
         document.getElementById('imageWallet').files[0] = "data:image/jpeg;base64," + imageData;
-		
 		smallImageWallet.src = "data:image/jpeg;base64," + imageData;
 		if(camerastatus=='1')
 		{
@@ -1680,18 +1684,24 @@ function oprationONTravelSettlementExp(){
 		}
        }else if(voucherType == 'BE'){
        	smallImageBE.style.display = 'block';       
-        fileTemp = "data:image/jpeg;base64," + imageData;
-		
+        fileTempCameraBE = "data:image/jpeg;base64," + imageData;
 		smallImageBE.src = "data:image/jpeg;base64," + imageData;
+		fileTempGalleryBE ="";
        }else if(voucherType == 'TS'){
        	smallImageTS.style.display = 'block';       
-        fileTemp = "data:image/jpeg;base64," + imageData;
+        fileTempCameraTS = "data:image/jpeg;base64," + imageData;
 		smallImageTS.src = "data:image/jpeg;base64," + imageData;
+		fileTempGalleryTS ="";
        }
-        
-		
-		
     }
+
+function resetImageData(){
+	fileTempCameraBE = "";
+	fileTempCameraTS = "";
+	fileTempGalleryBE = "";
+	fileTempGalleryTS = "";
+}
+
 	function capturePhoto(status,voucher_type) {
 
 	voucherType = voucher_type;	
@@ -1709,6 +1719,7 @@ function oprationONTravelSettlementExp(){
       // console.log(imageURI);
       // Get image handle
       //
+      resetImageData();
       if(voucherType == 'wallet'){
 		smallImageWallet.style.display = 'block';
 
@@ -1723,17 +1734,17 @@ function oprationONTravelSettlementExp(){
        }else if(voucherType == 'BE'){
 		smallImageBE.style.display = 'block';
 
-        document.getElementById('imageBE').files[0] = "data:image/jpeg;base64," + imageURI;
+        fileTempGalleryBE = "data:image/jpeg;base64," + imageURI;
 		
 		smallImageBE.src = "data:image/jpeg;base64," + imageURI;
-		
+		fileTempCameraBE = "";
 		}else if(voucherType == 'TS'){
 		smallImageTS.style.display = 'block';
 
-        document.getElementById('imageTS').files[0] = "data:image/jpeg;base64," + imageURI;
+        fileTempGalleryTS = "data:image/jpeg;base64," + imageURI;
 		
 		smallImageTS.src = "data:image/jpeg;base64," + imageURI;
-		
+		fileTempCameraTS = "";
 		}
 	    
     }
