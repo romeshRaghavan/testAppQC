@@ -209,7 +209,7 @@ function saveBusinessDetails(status){
 											[exp_date,acc_head_id,exp_name_id,exp_from_loc, exp_to_loc,exp_narration,exp_unit,exp_amt,currency_id,entitlement_exceeded,file]);
 								
 				if(status == "0"){
-				alert("inside if") ;
+				
 					document.getElementById('expDate').value ="";
 					document.getElementById('expFromLoc').value = "";
 					document.getElementById('expToLoc').value = "";
