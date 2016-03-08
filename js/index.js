@@ -85,13 +85,14 @@ function login()
 	var jsonToDomainNameSend = new Object();
   	jsonToDomainNameSend["userName"] = domainName;
 	WebServicePath = WebServicePath + JSON.stringify(jsonToDomainNameSend);
-
+	alert("WebServicePath"+WebServicePath);
     j.ajax({
          url: WebServicePath,
          type: 'GET',
          dataType: 'json',
          crossDomain: true,
          data: JSON.stringify(jsonToDomainNameSend),
+		 alert("datams"+data.message);
          success: function(data) {
          	if (data.status == 'Success'){
          		urlPath = data.message;
