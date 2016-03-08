@@ -92,8 +92,7 @@ function login()
          dataType: 'json',
          crossDomain: true,
          data: JSON.stringify(jsonToDomainNameSend),
-		 alert("datams"+data.message);
-         success: function(data) {
+		 success: function(data) {
          	if (data.status == 'Success'){
          		urlPath = data.message;
          		login();
