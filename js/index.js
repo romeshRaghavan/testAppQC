@@ -1,7 +1,8 @@
 var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
-var urlPath='http://1.255.255.36:8197/TnEV1_0AWeb/WebService/Login/';
+var urlPath='';
+var WebServicePath = 'http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service?result=';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -76,6 +77,40 @@ function login()
    });
 
  }
+ 
+ function commanLogin(){
+ 	var userName = document.getElementById("userName");
+ 	var userNameValue = userName.value; 
+ 	var domainName = userNameValue.split('@')[1];
+	var jsonToDomainNameSend = new Object();
+  	jsonToDomainNameSend["userName"] = domainName;
+	WebServicePath = WebServicePath + JSON.stringify(jsonToDomainNameSend);
+
+    j.ajax({
+         url: WebServicePath,
+         type: 'GET',
+         dataType: 'json',
+         crossDomain: true,
+         data: JSON.stringify(jsonToDomainNameSend),
+         success: function(data) {
+         	if (data.status == 'Success'){
+         		urlPath = data.message;
+         		login();
+        	}else if(data.status == 'Failure'){
+				successMessage = data.message;
+			  	document.getElementById("loginErrorMsg").innerHTML = successMessage;
+ 			   j('#loginErrorMsg').hide().fadeIn('slow').delay(2000).fadeOut('slow');
+ 			}else{
+				successMessage = data.message;
+             alert(successMessage);
+           }
+		},
+         error:function(data) {
+		   
+         }
+   });
+
+}
 
   function createBusinessExp(){
 	resetImageData();
