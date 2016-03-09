@@ -855,7 +855,7 @@ function saveTravelRequestAjax(jsonToSaveTR){
 							 j('#loading_Cat').hide();
 						}
 					  successMessage = data.Message;
-					  
+					  alert(successMessage);
 					  j('#loading_Cat').hide();
 				  }else if(data.Status=="Success"){
 					  successMessage = data.Message;
