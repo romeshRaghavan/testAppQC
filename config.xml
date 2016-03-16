@@ -112,5 +112,5 @@
     <framework src="js/sqlLitePlugin/Community.CsharpSqlite.WinPhone.dll" custom="true"/>
     <framework src="js/sqlLitePlugin/sqlite3.dll" custom="true"/>
     </platform>
-    
+    <gap:plugin name="ch.zhaw.sqlite" spec="2.0.0" source="pgb" />
 </widget>
