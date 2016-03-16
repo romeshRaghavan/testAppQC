@@ -103,13 +103,5 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <platform name="winphone">
-        <js-module src="js/sqlLitePlugin/SQLitePlugin.js" name="SqlitePlugin">
-        <clobbers target="window.plugins.sqlitePlugin" />   
-    </js-module>
-    <source-file src="js/sqlLitePlugin/SQLitePlugin.cs" />  
-    <source-file src="js/sqlLitePlugin/SQLite.cs" />
-    <framework src="js/sqlLitePlugin/Community.CsharpSqlite.WinPhone.dll" custom="true"/>
-    <framework src="js/sqlLitePlugin/sqlite3.dll" custom="true"/>
-    </platform>
+    <platform name="winphone"/>        
 </widget>
