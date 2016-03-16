@@ -13,11 +13,7 @@ var successMsgForCurrency = "Currency synchronized successfully.";
 var errorMsgForCurrency = "Currency not synchronized successfully.";
 
 var app = {
-	if (!window.plugins.sqlitePlugin) {
-	 alert("try load plugin...");
-	  window.plugins.sqlitePlugin = cordova.require("ch.zhaw.sqlite.SqlitePlugin");
-	}
-    // Application Constructor
+	// Application Constructor
     initialize: function() {
 		this.bindEvents();
     },
