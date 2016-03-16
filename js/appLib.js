@@ -127,10 +127,15 @@ function onConfirmExit(button) {
   //Local Database Create,Save,Display
 
   //Test for browser compatibility
-if (window.openDatabase) {
-	
+
+	try{
+	var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
+	alert("mydb "+mydb);	
+}catch(err){
+alert("catch "+err);
+	}
 	//Create the database the parameters are 1. the database name 2.version number 3. a description 4. the size of the database (in bytes) 1024 x 1024 = 1MB
-    var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
+    
 	//create All tables using SQL for the database using a transaction
 	mydb.transaction(function (t) {
 		//t.executeSql("CREATE TABLE IF NOT EXISTS employeeDetails (id INTEGER PRIMARY KEY ASC, firstName TEXT, lastName TEXT, gradeId INTEGER, budgetingStatus CHAR(1),unitId INTEGER, status TEXT)");
@@ -149,9 +154,7 @@ if (window.openDatabase) {
 		t.executeSql("CREATE TABLE IF NOT EXISTS travelRequestDetails (travelRequestId INTEGER PRIMARY KEY ASC, travelRequestNo TEXT,title TEXT, accountHeadId INTEGER,travelStartDate DATE,travelEndDate DATE,travelDomOrInter CHAR(1))");
     });
 
-} else {
-    alert("WebSQL is not supported by your browser!");
-}
+
 
 //function to remove a employeeDetails from the database, passed the row id as it's only parameter
 function saveBusinessDetails(status){
