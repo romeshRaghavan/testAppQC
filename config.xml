@@ -54,7 +54,7 @@
     <gap:plugin name="org.apache.cordova.file-transfer"/>
     <!-- <gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" /> -->
     <gap:plugin name="com.synconset.imagepicker" version="1.0.4" />
-     <plugin name="ch.zhaw.sqlite" spec="2.0.0" source="pgb" />
+    <plugin name="io.litehelpers.cordova.sqlitestorage" spec="0.7.5" source="pgb" />
     <!-- <plugin name="File" value="CDVFile" />
     <plugin name="FileTransfer" value="CDVFileTransfer" /> -->
     <!--icon src="/icon.png" gap:role="default"/-->
