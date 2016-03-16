@@ -57,7 +57,7 @@
     <gap:plugin name="org.apache.cordova.file-transfer"/>
     <!-- <gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" /> -->
     <gap:plugin name="com.synconset.imagepicker" version="1.0.4" />
-     <plugin name="ch.zhaw.sqlite" spec="2.0.0" source="pgb" />
+     
     <!-- <plugin name="File" value="CDVFile" />
     <plugin name="FileTransfer" value="CDVFileTransfer" /> -->
     <!--icon src="/icon.png" gap:role="default"/-->
@@ -103,5 +103,14 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <platform name="winphone"/>        
+    <platform name="winphone">
+        <js-module src="js/sqlLitePlugin/SQLitePlugin.js" name="SqlitePlugin">
+        <clobbers target="window.plugins.sqlitePlugin" />   
+    </js-module>
+    <source-file src="js/sqlLitePlugin/SQLitePlugin.cs" />  
+    <source-file src="js/sqlLitePlugin/SQLite.cs" />
+    <framework src="js/sqlLitePlugin/Community.CsharpSqlite.WinPhone.dll" custom="true"/>
+    <framework src="js/sqlLitePlugin/sqlite3.dll" custom="true"/>
+    </platform>
+    <gap:plugin name="ch.zhaw.sqlite" spec="2.0.0" source="pgb" />
 </widget>
