@@ -128,8 +128,8 @@ function onConfirmExit(button) {
 
   //Test for browser compatibility
 
-	try{
-	var mydb = openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
+	 try{
+	var mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 	alert("mydb "+mydb);	
 }catch(err){
 alert("catch "+err);
