@@ -4,7 +4,10 @@
     var SQLitePluginTransaction, get_unique_id, transaction_callback_queue, transaction_queue;
     var sqlitePluginRunning = false;
     var root = this;
-
+ if (!window.plugins.sqlitePlugin) { 
+ console.log("try load plugin..."); 
+ window.plugins.sqlitePlugin = cordova.require("ch.zhaw.sqlite.SqlitePlugin");
+}
     SQLitePlugin = function (databasePath, openSuccess, openError) {
         this.dbPath = databasePath;
         this.openSuccess = openSuccess;
