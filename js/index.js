@@ -164,7 +164,12 @@ alert("catch "+err);
 
 
 	 function createWallet(){
-		 
+		  try{
+	var db = window.sqlitePlugin.openDatabase({name: "my.db"});
+	alert("mydb "+db);	
+}catch(err){
+alert("catch "+err);
+	}
 		 var headerBackBtn=defaultPagePath+'headerPageForWalletOperation.html';
 		 var pageRef=defaultPagePath+'addToWallet.html';
 			j(document).ready(function() {
