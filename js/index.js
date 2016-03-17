@@ -114,7 +114,8 @@ function login()
   function createBusinessExp(){
   try{
 	var mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
-	alert("mydb "+mydb);	
+	alert("mydb "+mydb);
+	createDB(mydb);	
 }catch(err){
 alert("catch "+err);
 	}
@@ -167,6 +168,7 @@ alert("catch "+err);
 		  try{
 	var db = window.sqlitePlugin.openDatabase({name: "my.db"});
 	alert("mydb "+db);	
+	createDB(db);
 }catch(err){
 alert("catch "+err);
 	}
