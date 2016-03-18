@@ -113,15 +113,7 @@ function login()
 }
 
   function createBusinessExp(){
-  try{
-	 mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
-	alert("mydb "+mydb);
-	createDB();	
-}catch(err){
-alert("catch "+err);
-	}
-	toCheckTableIsCreated(mydb);
-	resetImageData();
+ 	resetImageData();
 	var headerBackBtn=defaultPagePath+'backbtnPage.html';
     var pageRef=defaultPagePath+'addAnExpense.html';
 			j(document).ready(function() {
