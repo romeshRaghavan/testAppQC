@@ -119,6 +119,7 @@ function login()
 }catch(err){
 alert("catch "+err);
 	}
+	toCheckTableIsCreated();
 	resetImageData();
 	var headerBackBtn=defaultPagePath+'backbtnPage.html';
     var pageRef=defaultPagePath+'addAnExpense.html';
@@ -129,6 +130,20 @@ alert("catch "+err);
       appPageHistory.push(pageRef);
 	 }
 
+function toCheckTableIsCreated(){
+	alert("inside toCheckTableIsCreated");
+	try{
+	mydb.transaction(function(t) {
+t.executeSql("select count(id) as cnt from businessExpDetails;", [], function(t, res) {
+        alert("res.rows.length: " + res.rows.length + " -- should be 1");
+        alert("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
+      });
+});	
+	}caatch(err){
+alert(err);
+	}
+	
+}
 
 	 function displayBusinessExp(){
 		 
