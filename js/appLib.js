@@ -130,14 +130,11 @@ function onConfirmExit(button) {
 function createDB(){
 	 try{
 	 mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
-	alert("mydb "+mydb);
-	createDB(mydb);	
-}catch(err){
-alert("catch "+err);
+	}catch(err){
+	alert("catch "+err);
 	}
 
-	
-		alert("inside create DB");
+	alert("inside create DB");
 		try{
 		mydb.transaction(function (t) {
 		//t.executeSql("CREATE TABLE IF NOT EXISTS employeeDetails (id INTEGER PRIMARY KEY ASC, firstName TEXT, lastName TEXT, gradeId INTEGER, budgetingStatus CHAR(1),unitId INTEGER, status TEXT)");
