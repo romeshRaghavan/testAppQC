@@ -112,13 +112,7 @@ function login()
 }
 
   function createBusinessExp(){
-  try{
-	var mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
-	alert("mydb "+mydb);
-	createDB(mydb);	
-}catch(err){
-alert("catch "+err);
-	}
+ 
 	toCheckTableIsCreated(mydb);
 	resetImageData();
 	var headerBackBtn=defaultPagePath+'backbtnPage.html';
@@ -179,13 +173,6 @@ t.executeSql("select count(busExpId) as cnt from businessExpDetails;", [], funct
 
 
 	 function createWallet(){
-		  try{
-	var db = window.sqlitePlugin.openDatabase({name: "my.db"});
-	alert("mydb "+db);	
-	createDB(db);
-}catch(err){
-alert("catch "+err);
-	}
 		 var headerBackBtn=defaultPagePath+'headerPageForWalletOperation.html';
 		 var pageRef=defaultPagePath+'addToWallet.html';
 			j(document).ready(function() {

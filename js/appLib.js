@@ -8,7 +8,7 @@ var employeeId;
 var empFirstName;
 var successSyncStatusBE =false;
 var successSyncStatusTR =false;
-
+var	mydb;
 var successMsgForCurrency = "Currency synchronized successfully.";
 var errorMsgForCurrency = "Currency not synchronized successfully.";
 
@@ -129,7 +129,7 @@ function onConfirmExit(button) {
   //Test for browser compatibility
 
 	 try{
-var	mydb = sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
+	 mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 	alert("mydb "+mydb);
 	createDB(mydb);	
 }catch(err){
