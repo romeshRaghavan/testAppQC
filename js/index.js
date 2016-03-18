@@ -28,7 +28,7 @@ document.addEventListener("deviceready",loaded,false);
 
 function login()
    {
-
+	createDB();
     var userName = document.getElementById("userName");
     var password = document.getElementById("pass");
 
@@ -57,6 +57,7 @@ function login()
 				synchronizeTRForTS();  
 			  }
 			  synchronizeBEMasterData();
+
 			}else if(data.Status == 'Failure'){
  			   successMessage = data.Message;
 			   if(successMessage.length == 0){
@@ -115,7 +116,7 @@ function login()
   try{
 	 mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 	alert("mydb "+mydb);
-	createDB(mydb);	
+	createDB();	
 }catch(err){
 alert("catch "+err);
 	}

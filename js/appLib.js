@@ -127,7 +127,7 @@ function onConfirmExit(button) {
   //Local Database Create,Save,Display
 
   //Test for browser compatibility
-
+function createDB(){
 	 try{
 	 mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 	alert("mydb "+mydb);
@@ -136,7 +136,7 @@ function onConfirmExit(button) {
 alert("catch "+err);
 	}
 
-	function createDB(mydb){
+	
 		alert("inside create DB");
 		try{
 		mydb.transaction(function (t) {
