@@ -134,7 +134,7 @@ function toCheckTableIsCreated(){
 	alert("inside toCheckTableIsCreated");
 	try{
 	mydb.transaction(function(t) {
-t.executeSql("select count(busExpId) as cnt from businessExpDetails;", [], function(transaction, res) {
+t.executeSql("select count(busExpId) as cnt from businessExpDetails;", [], function(t, res) {
         alert("res.rows.length: " + res.rows.length + " -- should be 1");
         alert("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
       });
