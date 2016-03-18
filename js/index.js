@@ -119,7 +119,7 @@ function login()
 }catch(err){
 alert("catch "+err);
 	}
-	toCheckTableIsCreated();
+	toCheckTableIsCreated(mydb);
 	resetImageData();
 	var headerBackBtn=defaultPagePath+'backbtnPage.html';
     var pageRef=defaultPagePath+'addAnExpense.html';
@@ -130,7 +130,7 @@ alert("catch "+err);
       appPageHistory.push(pageRef);
 	 }
 
-function toCheckTableIsCreated(){
+function toCheckTableIsCreated(mydb){
 	alert("inside toCheckTableIsCreated");
 	try{
 	mydb.transaction(function(t) {
