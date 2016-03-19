@@ -127,7 +127,7 @@ function onConfirmExit(button) {
   //Local Database Create,Save,Display
 
   //Test for browser compatibility
-function createDB(){
+if(window.sqlitePlugin){
 	 try{
 	 mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 	}catch(err){
@@ -157,6 +157,8 @@ function createDB(){
 			alert("exception createdb"+err);
 		}
 		
+	}else{
+		alert("else part ");
 	}
 	//Create the database the parameters are 1. the database name 2.version number 3. a description 4. the size of the database (in bytes) 1024 x 1024 = 1MB
     
