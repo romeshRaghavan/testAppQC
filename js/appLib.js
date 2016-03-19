@@ -566,7 +566,7 @@ function fetchExpenseClaim() {
 function synchronizeBEMasterData() {
 	var jsonSentToSync=new Object();
 	alert("emp id"+window.localStorage.getItem("EmployeeId"));
-	alert("urlPath"+urlPath);
+	alert("urlPath"+window.localStorage.getItem("urlPath"));
 	jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
 	jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
 	jsonSentToSync["GradeId"] = window.localStorage.getItem("GradeID");
@@ -574,7 +574,7 @@ function synchronizeBEMasterData() {
 	j('#loading_Cat').show();
 	if (mydb) {
 		j.ajax({
-			  url: urlPath+"SyncAccountHeadWebService",
+			  url: window.localStorage.getItem("urlPath")+"SyncAccountHeadWebService",
 			  type: 'POST',
 			  dataType: 'json',
 			  crossDomain: true,
@@ -670,7 +670,7 @@ function synchronizeBEMasterData() {
 			});
 			
 		j.ajax({
-		  url: urlPath+"CurrencyService",
+		  url: window.localStorage.getItem("urlPath")+"CurrencyService",
 		  type: 'POST',
 		  dataType: 'json',
 		  crossDomain: true,
@@ -717,7 +717,7 @@ function synchronizeBEMasterData() {
  
  
  function synchronizeTRMasterData() {
- 	alert("urlPath"+urlPath);
+ 	alert("urlPath"+window.localStorage.getItem("urlPath"));
 	var jsonSentToSync=new Object();
 	j('#loading_Cat').show();
 	jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
@@ -728,7 +728,7 @@ function synchronizeBEMasterData() {
 	
 	if (mydb) {
 		j.ajax({
-		  url: urlPath+"SyncTravelAccountHeadWebService",
+		  url: window.localStorage.getItem("urlPath")+"SyncTravelAccountHeadWebService",
 		  type: 'POST',
 		  dataType: 'json',
 		  crossDomain: true,
@@ -1052,14 +1052,15 @@ function fetchTrvlTypeList(transaction, results) {
 
 
 
-function setUserSessionDetails(val){
+function setUserSessionDetails(val,url){
 	 window.localStorage.setItem("TrRole",val.TrRole);
 	 window.localStorage.setItem("EmployeeId",val.EmpId);
 	 window.localStorage.setItem("FirstName",val.FirstName);
 	 window.localStorage.setItem("LastName",val.LastName);
 	 window.localStorage.setItem("GradeID",val.GradeID);
 	 window.localStorage.setItem("BudgetingStatus",val.BudgetingStatus);
-	 window.localStorage.setItem("UnitId",val.UnitId);
+	 window.localStorage.setItem("UnitId",val.UnitId);	
+	 window.localStorage.setItem("urlPath",url);
 }
 
 function getUserID() {

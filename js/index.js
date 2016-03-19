@@ -28,8 +28,7 @@ document.addEventListener("deviceready",loaded,false);
 
 function login()
    {
-	alert("login");
-    var userName = document.getElementById("userName");
+	var userName = document.getElementById("userName");
     var password = document.getElementById("pass");
 
     var jsonToBeSend=new Object();
@@ -51,7 +50,7 @@ function login()
              j('#mainContainer').load(pageRef);
               appPageHistory.push(pageRef);
 			  //addEmployeeDetails(data);
-			  setUserSessionDetails(data);
+			  setUserSessionDetails(data,urlPath);
 			  if(data.TrRole){
 				synchronizeTRMasterData();
 				synchronizeTRForTS();  
@@ -277,7 +276,7 @@ function saveBusinessExpDetails(jsonBEArr,busExpDetailsArr){
 	 var pageRef=defaultPagePath+'success.html';
 	 j('#loading_Cat').show();
 	 j.ajax({
-				  url: urlPath+"BusExpService",
+				  url: window.localStorage.getItem("urlPath")+"BusExpService",
 				  type: 'POST',
 				  dataType: 'json',
 				  crossDomain: true,
@@ -312,12 +311,12 @@ function saveBusinessExpDetails(jsonBEArr,busExpDetailsArr){
 function saveTravelSettleExpDetails(jsonTSArr,tsExpDetailsArr){
 	var headerBackBtn=defaultPagePath+'backbtnPage.html';
 	 var jsonToSaveTS = new Object();
-	 alert("urlPath"+urlPath);
+	 alert("urlPath"+window.localStorage.getItem("urlPath"));
 	 jsonToSaveTS["employeeId"] = window.localStorage.getItem("EmployeeId");
 	 jsonToSaveTS["expenseDetails"] = jsonTSArr;
 	 var pageRef=defaultPagePath+'success.html';
 	j.ajax({
-				  url: urlPath+"SyncSettlementExpensesWebService",
+				  url: window.localStorage.getItem("urlPath")+"SyncSettlementExpensesWebService",
 				  type: 'POST',
 				  dataType: 'json',
 				  crossDomain: true,
