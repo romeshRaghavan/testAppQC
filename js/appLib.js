@@ -41,9 +41,7 @@ var app = {
 	}catch(err){
 	alert("catch "+err);
 	}
-
-	alert("inside create DB");
-		try{
+    try{
 		mydb.transaction(function (t) {
 		//t.executeSql("CREATE TABLE IF NOT EXISTS employeeDetails (id INTEGER PRIMARY KEY ASC, firstName TEXT, lastName TEXT, gradeId INTEGER, budgetingStatus CHAR(1),unitId INTEGER, status TEXT)");
 		t.executeSql("CREATE TABLE IF NOT EXISTS currencyMst (currencyId INTEGER PRIMARY KEY ASC, currencyName TEXT)");
@@ -66,14 +64,14 @@ var app = {
 		}
 		
 	}else{
-		alert("else part ");
+		alert("db not found, your browser does not support web sql!");
 	}
 		  document.addEventListener("backbutton", function(e){
 			 goBackEvent();
 		  }, false);
 		  }
 };
-alert("normal flow");
+
 function goBack() {
 	var currentUser=getUserID();
 	
@@ -565,8 +563,6 @@ function fetchExpenseClaim() {
 
 function synchronizeBEMasterData() {
 	var jsonSentToSync=new Object();
-	alert("emp id"+window.localStorage.getItem("EmployeeId"));
-	alert("urlPath"+window.localStorage.getItem("urlPath"));
 	jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
 	jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
 	jsonSentToSync["GradeId"] = window.localStorage.getItem("GradeID");
@@ -781,7 +777,7 @@ function synchronizeBEMasterData() {
 		});
 		
 		j.ajax({
-			  url: urlPath+"CurrencyService",
+			  url: window.localStorage.getItem("urlPath")+"CurrencyService",
 			  type: 'POST',
 			  dataType: 'json',
 			  crossDomain: true,
@@ -821,7 +817,7 @@ function synchronizeBEMasterData() {
 					});	
 		
 		j.ajax({
-			  url: urlPath+"SyncTravelMaster",
+			  url: window.localStorage.getItem("urlPath")+"SyncTravelMaster",
 			  type: 'POST',
 			  dataType: 'json',
 			  crossDomain: true,
@@ -1328,7 +1324,7 @@ function synchronizeTRForTS() {
 	j('#loading_Cat').show();
 	if (mydb) {
  		j.ajax({
-			url: urlPath+"FetchTRForTSWebService",
+			url: window.localStorage.getItem("urlPath")+"FetchTRForTSWebService",
 			type: 'POST',
 			dataType: 'json',
 			crossDomain: true,

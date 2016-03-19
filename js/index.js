@@ -69,7 +69,6 @@ function login()
 			    j('#loading').hide();
              alert("Please enter correct username or password");
            }
-
          },
          error:function(data) {
 		   j('#loading').hide();
@@ -122,24 +121,10 @@ function login()
       appPageHistory.push(pageRef);
 	 }
 
-function toCheckTableIsCreated(mydb){
-	alert("inside toCheckTableIsCreated");
-	try{
-	mydb.transaction(function(t) {
-t.executeSql("select count(busExpId) as cnt from businessExpDetails;", [], function(t, res) {
-        alert("res.rows.length: " + res.rows.length + " -- should be 1");
-        alert("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-      });
-});	
-	}catch(err){alert(err);}
-	
-	
-}
-
-	 function displayBusinessExp(){
+   function displayBusinessExp(){
 		 
-		 var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
-     var pageRef=defaultPagePath+'fairClaimTable.html';
+		var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
+     	var pageRef=defaultPagePath+'fairClaimTable.html';
 			j(document).ready(function() {
 				j('#mainHeader').load(headerBackBtn);
 				j('#mainContainer').load(pageRef);
@@ -149,7 +134,7 @@ t.executeSql("select count(busExpId) as cnt from businessExpDetails;", [], funct
 
 	 function displayTSExp(){
 		 
-		 var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
+		var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
 		var pageRef=defaultPagePath+'travelSettlementTable.html';
 			j(document).ready(function() {
 				j('#mainHeader').load(headerBackBtn);
@@ -367,7 +352,7 @@ function callSendForApprovalServiceForBE(jsonToSaveBE,busExpDetailsArr,pageRef){
 j('#loading_Cat').show();
 var headerBackBtn=defaultPagePath+'backbtnPage.html';
 j.ajax({
-				  url: urlPath+"SynchSubmitBusinessExpense",
+				  url: window.localStorage.getItem("urlPath")+"SynchSubmitBusinessExpense",
 				  type: 'POST',
 				  dataType: 'json',
 				  crossDomain: true,
@@ -856,7 +841,7 @@ function syncSubmitTravelDetails(){
 function saveTravelRequestAjax(jsonToSaveTR){
 	var pageRef=defaultPagePath+'success.html';
 	 j.ajax({
-			  url: urlPath+"SyncTravelRequestDetail",
+			  url: window.localStorage.getItem("urlPath")+"SyncTravelRequestDetail",
 			  type: 'POST',
 			  dataType: 'json',
 			  crossDomain: true,
@@ -1815,7 +1800,7 @@ function resetImageData(){
 		 j('#loading_Cat').show();
 		 for(i; i<jsonWalletArr.length; i++ ){
 			 j.ajax({
-					  url: urlPath+"WalletReceiptsService",
+					  url: window.localStorage.getItem("urlPath")+"WalletReceiptsService",
 					  type: 'POST',
 					  dataType: 'json',
 					  crossDomain: true,
