@@ -28,7 +28,7 @@ document.addEventListener("deviceready",loaded,false);
 
 function login()
    {
-	
+	alert("login");
     var userName = document.getElementById("userName");
     var password = document.getElementById("pass");
 

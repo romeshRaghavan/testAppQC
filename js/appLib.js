@@ -41,7 +41,7 @@ var app = {
 		  }, false);
 		  }
 };
-
+alert("normal flow");
 function goBack() {
 	var currentUser=getUserID();
 	
