@@ -127,7 +127,8 @@ function onConfirmExit(button) {
   //Local Database Create,Save,Display
 
   //Test for browser compatibility
-if(window.sqlitePlugin){
+  alert("window.sqlitePlugin.openDatabase"+window.sqlitePlugin.openDatabase);
+if(window.sqlitePlugin.openDatabase){
 	 try{
 	 mydb = window.sqlitePlugin.openDatabase("Expenzing", "0.1", "Expenzing", 1024 * 1024);
 	}catch(err){
