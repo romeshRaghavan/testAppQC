@@ -565,7 +565,7 @@ function fetchExpenseClaim() {
 
 function synchronizeBEMasterData() {
 	var jsonSentToSync=new Object();
-	
+	alert("urlPath"+urlPath);
 	jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
 	jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
 	jsonSentToSync["GradeId"] = window.localStorage.getItem("GradeID");
@@ -716,6 +716,7 @@ function synchronizeBEMasterData() {
  
  
  function synchronizeTRMasterData() {
+ 	alert("urlPath"+urlPath);
 	var jsonSentToSync=new Object();
 	j('#loading_Cat').show();
 	jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
