@@ -565,6 +565,7 @@ function fetchExpenseClaim() {
 
 function synchronizeBEMasterData() {
 	var jsonSentToSync=new Object();
+	alert("emp id"+window.localStorage.getItem("EmployeeId"));
 	alert("urlPath"+urlPath);
 	jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
 	jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
