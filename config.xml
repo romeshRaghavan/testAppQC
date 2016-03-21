@@ -25,15 +25,13 @@
     <preference name="android-maxSdkVersion" value="23" />
     <preference name="android-installLocation" value="auto" />
    
-   
     <feature name="http://api.phonegap.com/1.0/device" />
-    <!-- <feature name="http://api.phonegap.com/1.0/camera"/> -->
     <feature name="http://api.phonegap.com/1.0/file"/>
     <feature name="http://api.phonegap.com/1.0/media"/>
     <feature name="http://api.phonegap.com/1.0/network"/>
+    
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.core.camera" />
-    <!-- <plugin name="org.apache.cordova.camera" spec="0.2.3" source="pgb" /> -->
     <gap:plugin name="org.apache.cordova.media-capture" />
     <gap:plugin name="org.apache.cordova.console" />
     <gap:plugin name="org.apache.cordova.contacts" />
@@ -52,12 +50,9 @@
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="org.apache.cordova.file"/>
     <gap:plugin name="org.apache.cordova.file-transfer"/>
-    <!-- <gap:plugin name="io.github.pwlin.cordova.plugins.fileopener2" version="1.0.11" /> -->
     <gap:plugin name="com.synconset.imagepicker" version="1.0.4" />
     <plugin name="io.litehelpers.cordova.sqlitestorage" spec="0.7.5" source="pgb" />
-    <!-- <plugin name="File" value="CDVFile" />
-    <plugin name="FileTransfer" value="CDVFileTransfer" /> -->
-    <!--icon src="/icon.png" gap:role="default"/-->
+    
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
@@ -70,7 +65,6 @@
     <icon gap:platform="ios" height="152" src="res/icon/ios/icon-152.png" width="152" />
     <icon gap:platform="ios" height="114" src="res/icon/ios/icon-57-2x.png" width="114" />
     <icon gap:platform="ios" height="144" src="res/icon/ios/icon-72-2x.png" width="144" />
-    <icon gap:platform="webos" src="www/res/icon/webos/icon-64.png" />
     <icon gap:platform="winphone" gap:role="background" src="res/icon/window/icon-150X150.png" />
     <icon gap:platform="winphone" width="44" height="44" src="res/icon/window/icon-44X44.png" />
     <icon gap:platform="winphone" width="106" height="106" src="res/icon/window/icon-44X44.png" />
@@ -80,6 +74,7 @@
     <icon gap:platform="winphone" width="170" height="170" src="res/icon/window/icon-71X71.png" />
     <icon gap:platform="winphone" width="310" height="150" src="res/icon/window/icon-310X150.png" />
     <icon gap:platform="winphone" width="744" height="360" src="res/icon/window/icon-310X150.png" />
+    <icon gap:platform="webos" src="www/res/icon/webos/icon-64.png" />
 
     <gap:splash gap:platform="android" gap:qualifier="port-ldpi" src="www/res/screen/android/screen-ldpi-portrait.png" />
     <gap:splash gap:platform="android" gap:qualifier="port-mdpi" src="www/res/screen/android/screen-mdpi-portrait.png" />
@@ -88,8 +83,7 @@
     <gap:splash gap:platform="ios" height="480" src="res/splash/ios/Default.png" width="320" />
     <gap:splash gap:platform="ios" height="960" src="res/splash/ios/Default2x.png" width="640" />
     <gap:splash gap:platform="ios" height="1136" src="res/splash/ios/Default-568h@2x.png" width="640" />
-    <gap:splash gap:platform="blackberry" src="www/res/screen/blackberry/screen-225.png" />
-    <gap:splash gap:platform="winphone" width="1152" height="1920" src="res/splash/ios/Default.png" />
+    <gap:splash gap:platform="winphone" src="res/splash/ios/Default.png" />
     <plugin name="cordova-plugin-whitelist" version="1" />
     <access origin="*" />
     
