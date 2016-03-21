@@ -71,7 +71,7 @@
     <icon gap:platform="ios" height="114" src="res/icon/ios/icon-57-2x.png" width="114" />
     <icon gap:platform="ios" height="144" src="res/icon/ios/icon-72-2x.png" width="144" />
     <icon gap:platform="webos" src="www/res/icon/webos/icon-64.png" />
-    <icon gap:platform="winphone" gap:role="background" src="www/res/icon/windows-phone/icon-173-tile.png" />
+    <icon gap:platform="winphone" gap:role="background" src="res/icon/window/icon-150X150.png" />
     <icon gap:platform="winphone" width="44" height="44" src="res/icon/window/icon-44X44.png" />
     <icon gap:platform="winphone" width="106" height="106" src="res/icon/window/icon-44X44.png" />
     <icon gap:platform="winphone" width="150" height="150" src="res/icon/window/icon-150X150.png" />
