@@ -1,29 +1,26 @@
 <script>
 	oprationONTravelSettlementExp();
 	hideTRMenus();
-</script> 
-<div class="topfixednavigate" >
-<a href="#" class="backarrowbtn">
-<img src="images/left-arrow.png" width="15px" height="25px" onclick="goBack();"/>
-<img class="expenzingImg" src="images/Expenzing_Square.png" onclick="goBack();"/></a>
-<img class="selectionDeleteBEBtns" width="35px" height="25px" src="images/delete.png" id="deleteTS" >
-<img class="selectionSynchBEBtns" width="35px" height="25px" src="images/synch.png" id="synchTS" >
-<H4 id="headerId" class="headerposition"></H4>
-<div class="dropdown aligndropdownv" align="right">
-    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
-	</button>
+</script>
+
+<div class="topfixednavigate" > <a href="#" class="backarrowbtn"> <img src="images/left-arrow.png" width="15px" height="25px" onclick="goBack();"/> <img class="expenzingImg" src="images/Expenzing_Square.png" onclick="goBack();"/></a>
+  <H4 id="headerId" class="headerposition"></H4>
+  <div class="dropdown aligndropdownv" align="right">
+    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown"> </button>
     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="menu1">
-			  <li role="presentation"><a role="menuitem" tabindex="-1" onclick="synchronizeBEMasterData()">Sync Business Expense Master</a></li>
-			   <div id="TrRoleID" style="font-weight: 400;padding: 3px 20px;line-height: 1.42857143;text-align: left;white-space: nowrap;">
-			  <li role="presentation"><a role="menuitem"  style="color: #333;" tabindex="-1" onclick="synchronizeTRMasterData();">Sync Travel Master</a></li>
-			  <li role="presentation"><a role="menuitem" style="color: #333;" tabindex="-1" onclick="synchronizeTRForTS();">Pull Travel Request to Settle</a></li>
-			  </div>
-			</ul>
-</div>
-<div  style="display:none" id="syncSuccessMsg" class="displaysynctext">
-               Expenses synchronized successfully.
-  		</div>
-		<div  style="display:none" id="syncFailureMsg" class="displaysynctext">
-               Expenses not synchronized successfully.
-  		</div>
+      <li role="presentation"><a role="menuitem" tabindex="-1" onclick="synchronizeBEMasterData()">Sync Business Expense Master</a></li>
+      <div id="TrRoleID" style="font-weight: 400;padding: 3px 20px;line-height: 1.42857143;text-align: left;white-space: nowrap;">
+        <li role="presentation"><a role="menuitem"  style="color: #333;" tabindex="-1" onclick="synchronizeTRMasterData();">Sync Travel Master</a></li>
+        <li role="presentation"><a role="menuitem" style="color: #333;" tabindex="-1" onclick="synchronizeTRForTS();">Pull Travel Request to Settle</a></li>
+      </div>
+    </ul>
+  </div>
+  <table border="0" cellspacing="0" cellpadding="0" style="float:right; width:auto !important;">
+    <tr>
+      <td style="padding:0 5px;"><img class="selectionSynchBEBtns" width="30px" height="30px" src="images/synch.png" id="synchTS" ></td>
+      <td style="padding:0 5px;"><img class="selectionDeleteBEBtns" width="30px" height="30px" src="images/delete.png" id="deleteTS" ></td>
+    </tr>
+  </table>
+  <div  style="display:none" id="syncSuccessMsg" class="displaysynctext"> Expenses synchronized successfully. </div>
+  <div  style="display:none" id="syncFailureMsg" class="displaysynctext"> Expenses not synchronized successfully. </div>
 </div>
