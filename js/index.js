@@ -2,7 +2,7 @@ var j = jQuery.noConflict();
 var defaultPagePath='app/pages/';
 var headerMsg = "Expenzing";
 var urlPath;
-var WebServicePath = 'http://1.255.255.36:9898/NexstepWebService/mobileLinkResolver.service?result=';
+var WebServicePath = 'http://1.255.255.188:8088/NexstepWebService/mobileLinkResolver.service?';
 var clickedFlagCar = false;
 var clickedFlagTicket = false;
 var clickedFlagHotel = false;
@@ -82,10 +82,15 @@ function login()
  	var userNameValue = userName.value; 
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
+	var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
+	var pageRef=defaultPagePath+'category.html';
   	jsonToDomainNameSend["userName"] = domainName;
-	WebServicePath = WebServicePath + JSON.stringify(jsonToDomainNameSend);
+  	j('#mainHeader').load(headerBackBtn);
+    j('#mainContainer').load(pageRef);
+    var res="result="+ JSON.stringify(jsonToDomainNameSend);
+	var requestPath = WebServicePath +res;
 	j.ajax({
-         url: WebServicePath,
+         url: requestPath,
          type: 'GET',
          dataType: 'json',
          crossDomain: true,
@@ -96,7 +101,7 @@ function login()
          		login();
         	}else if(data.status == 'Failure'){
 				successMessage = data.message;
-			  	document.getElementById("loginErrorMsg").innerHTML = successMessage;
+				document.getElementById("loginErrorMsg").innerHTML = successMessage;
  			   j('#loginErrorMsg').hide().fadeIn('slow').delay(2000).fadeOut('slow');
  			}else{
 				successMessage = data.message;
