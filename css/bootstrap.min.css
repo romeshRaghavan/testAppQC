@@ -1056,8 +1056,8 @@ figure {
 	margin:0
 }
 img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 100px;
+    max-height: 100px;
     vertical-align: middle;
 }
 .carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
