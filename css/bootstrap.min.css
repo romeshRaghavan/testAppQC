@@ -2134,8 +2134,8 @@ th {
 }
 .table-bordered-wallet>tbody>tr>td, .table-bordered-wallet>tbody>tr>th, .table-bordered-wallet>tfoot>tr>td, .table-bordered-wallet>tfoot>tr>th, .table-bordered-wallet>thead>tr>td, .table-bordered-wallet>thead>tr>th {
 	border:1px solid #333333;
-	    height: 100px;
-    width: 100px;
+	    height: auto;
+        width: auto;
 }
 .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
 	border-bottom-width:1px;
