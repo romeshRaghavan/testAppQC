@@ -296,7 +296,6 @@ function saveBusinessExpDetails(jsonBEArr,busExpDetailsArr){
 function saveTravelSettleExpDetails(jsonTSArr,tsExpDetailsArr){
 	var headerBackBtn=defaultPagePath+'backbtnPage.html';
 	 var jsonToSaveTS = new Object();
-	 alert("urlPath"+window.localStorage.getItem("urlPath"));
 	 jsonToSaveTS["employeeId"] = window.localStorage.getItem("EmployeeId");
 	 jsonToSaveTS["expenseDetails"] = jsonTSArr;
 	 var pageRef=defaultPagePath+'success.html';

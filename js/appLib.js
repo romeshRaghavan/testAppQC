@@ -709,8 +709,7 @@ function synchronizeBEMasterData() {
  
  
  function synchronizeTRMasterData() {
- 	alert("urlPath"+window.localStorage.getItem("urlPath"));
-	var jsonSentToSync=new Object();
+ 	var jsonSentToSync=new Object();
 	j('#loading_Cat').show();
 	jsonSentToSync["BudgetingStatus"] = window.localStorage.getItem("BudgetingStatus");
 	jsonSentToSync["EmployeeId"] = window.localStorage.getItem("EmployeeId");
