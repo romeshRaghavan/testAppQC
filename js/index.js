@@ -22,21 +22,26 @@ var fileTempCameraBE ="";
 var fileTempCameraTS ="";
 var fileTempGalleryBE ="";
 var fileTempGalleryTS ="";
+var mapToCalcERAmt = new Map();
 j(document).ready(function(){ 
 document.addEventListener("deviceready",loaded,false);
 });
 
 function login()
    {
-	var userName = document.getElementById("userName");
-    var password = document.getElementById("pass");
-
+	if(document.getElementById("userName")!=null){ 
+    var userName = document.getElementById("userName");
+	}else if(document.getElementById("userName")!=null){
+		var userName = document.getElementById("userNameId");
+	}
+	var password = document.getElementById("pass");
     var jsonToBeSend=new Object();
     jsonToBeSend["user"] = userName.value;
     jsonToBeSend["pass"] = password.value;
     
 	var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
 	var pageRef=defaultPagePath+'category.html';
+	urlPath=window.localStorage.getItem("urlPath");
 	j('#loading').show();
     j.ajax({
          url: urlPath+"LoginWebService",
@@ -50,7 +55,8 @@ function login()
              j('#mainContainer').load(pageRef);
               appPageHistory.push(pageRef);
 			  //addEmployeeDetails(data);
-			  setUserSessionDetails(data,urlPath);
+			  setUserStatusInLocalStorage("Valid");
+			  setUserSessionDetails(data,jsonToBeSend);
 			  if(data.TrRole){
 				synchronizeTRMasterData();
 				synchronizeTRForTS();  
@@ -83,25 +89,32 @@ function commanLogin(){
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
 	jsonToDomainNameSend["userName"] = domainName;
-  	var res=JSON.stringify(jsonToDomainNameSend);
-	var requestPath = WebServicePath +res;
+	jsonToDomainNameSend["mobilePlatform"] = device.platform;
+	//jsonToDomainNameSend["mobilePlatform"] = "Windows";
+  	//var res=JSON.stringify(jsonToDomainNameSend);
+	var requestPath = WebServicePath;
 	j.ajax({
          url: requestPath,
-         type: 'GET',
+         type: 'POST',
          dataType: 'json',
          crossDomain: true,
          data: JSON.stringify(jsonToDomainNameSend),
 		 success: function(data) {
          	if (data.status == 'Success'){
          		urlPath = data.message;
+         		setUrlPathLocalStorage(urlPath);
          		login();
         	}else if(data.status == 'Failure'){
 				successMessage = data.message;
 				document.getElementById("loginErrorMsg").innerHTML = successMessage;
  			   j('#loginErrorMsg').hide().fadeIn('slow').delay(2000).fadeOut('slow');
  			}else{
-				successMessage = data.message;
-             alert(successMessage);
+ 				successMessage = data.message;
+ 				if(successMessage == "" || successMessage == null){
+				alert("Please enter correct username or password");				
+				}else{
+ 				alert(successMessage);	
+ 				}	
            }
 		},
          error:function(data) {
@@ -170,11 +183,20 @@ function commanLogin(){
 	var headerBackBtn;
 	
 	if(window.localStorage.getItem("EmployeeId")!= null){
-		pgRef=defaultPagePath+'category.html';
-		
-		headerBackBtn=defaultPagePath+'categoryMsgPage.html';
-	}
-	else{
+		if(window.localStorage.getItem("UserStatus")=='ResetPswd'){
+			headerBackBtn=defaultPagePath+'expenzingImagePage.html';
+			pgRef=defaultPagePath+'loginPageResetPswd.html';
+		}else if(window.localStorage.getItem("UserStatus")=='Valid'){
+			pgRef=defaultPagePath+'category.html';
+			headerBackBtn=defaultPagePath+'categoryMsgPage.html';
+		}else{
+			headerBackBtn=defaultPagePath+'expenzingImagePage.html';
+
+		pgRef=defaultPagePath+'loginPage.html';
+		}
+
+
+	}	else{
 		headerBackBtn=defaultPagePath+'expenzingImagePage.html';
 		pgRef=defaultPagePath+'loginPage.html';
 	}
@@ -182,7 +204,14 @@ function commanLogin(){
 	j(document).ready(function() {
 		j('#mainHeader').load(headerBackBtn);
 			j('#mainContainer').load(pgRef);
-
+			j('#mainContainer').load(pgRef,function() {
+  						if(window.localStorage.getItem("UserStatus")!=null
+  							&& window.localStorage.getItem("UserStatus")=='ResetPswd'){
+  							document.getElementById("userNameLabel").innerHTML=window.localStorage.getItem("UserName");
+  							document.getElementById("userName").value=window.localStorage.getItem("UserName");
+  						}
+		 			  
+					});
 			j('#mainContainer').swipe({
 				swipe:function(event,direction,distance,duration,fingercount){
 					switch (direction) {
@@ -1156,6 +1185,8 @@ function setPerUnitDetails(transaction, results){
 		        perUnitDetailsJSON["expFixedLimitAmt"]=row.expFixedLimitAmt;
 		        perUnitDetailsJSON["expenseName"]=row.expName;
 				perUnitDetailsJSON["expPerUnitActiveInative"]=row.expPerUnitActiveInative;
+				perUnitDetailsJSON["isErReqd"]=row.isErReqd;
+				perUnitDetailsJSON["limitAmountForER"]=row.limitAmountForER;
 		        document.getElementById("expAmt").value="";
 		        document.getElementById("expUnit").value="";
 		        if(perUnitDetailsJSON.expenseIsfromAndToReqd=='N'){
@@ -1514,6 +1545,10 @@ function oprationOnExpenseClaim(){
 								  jsonFindBE["fromLocation"] = j(this).find('td.expFromLoc1').text();
 								  jsonFindBE["toLocation"] = j(this).find('td.expToLoc1').text();
 								  jsonFindBE["narration"] = j(this).find('td.expNarration1').text();
+
+								  jsonFindBE["isErReqd"] = j(this).find('td.isErReqd').text();
+								  jsonFindBE["ERLimitAmt"] = j(this).find('td.ERLimitAmt').text();
+
 								  jsonFindBE["perUnitException"] = j(this).find('td.isEntitlementExceeded').text();
 
 								  if(j(this).find('td.expUnit').text()!="" ) {
@@ -1880,5 +1915,69 @@ function hideTRMenus(){
 		document.getElementById('TrRoleID').style.display="block";
 	}else{
 		document.getElementById('TrRoleID').style.display="none";
+	}
+}
+function validateValidMobileUser(){
+	var pgRef;
+	var headerBackBtn;
+	var jsonToBeSend=new Object();
+	if(window.localStorage.getItem("EmployeeId")!= null
+		&& (window.localStorage.getItem("UserStatus")==null || window.localStorage.getItem("UserStatus")=='Valid')){
+		jsonToBeSend["user"]=window.localStorage.getItem("UserName");
+		jsonToBeSend["pass"]=window.localStorage.getItem("Password");
+		j.ajax({
+	         url:  window.localStorage.getItem("urlPath")+"ValidateUserWebservice",
+	         type: 'POST',
+	         dataType: 'json',
+	         crossDomain: true,
+	         data: JSON.stringify(jsonToBeSend),
+	         success: function(data) {
+	         	
+	         	 if(data.Status == 'Success'){
+	         	 	setUserStatusInLocalStorage("Valid");
+	           }else if(data.Status == 'NoAndroidRole'){
+	         	 	successMessage = data.Message;
+	         	 	headerBackBtn=defaultPagePath+'expenzingImagePage.html';
+					pgRef=defaultPagePath+'loginPage.html';
+					setUserStatusInLocalStorage("Invalid");
+					j('#mainHeader').load(headerBackBtn);
+             		j('#mainContainer').load(pgRef,function() {
+  						document.getElementById("loginErrorMsg").innerHTML = successMessage;
+		 			   j('#loginErrorMsg').hide().fadeIn('slow').delay(4000).fadeOut('slow');
+		 			   j('#loading').hide();
+					});
+				  
+	           }else if(data.Status == 'InactiveUser'){
+				   successMessage = data.Message;
+	         	 	headerBackBtn=defaultPagePath+'expenzingImagePage.html';
+					pgRef=defaultPagePath+'loginPage.html';
+					 j('#mainHeader').load(headerBackBtn);
+					 setUserStatusInLocalStorage("Inactive");
+					 resetUserSessionDetails();
+             		j('#mainContainer').load(pgRef,function() {
+  						document.getElementById("loginErrorMsg").innerHTML = successMessage;
+		 			   j('#loginErrorMsg').hide().fadeIn('slow').delay(4000).fadeOut('slow');
+		 			   j('#loading').hide();
+					});
+	           }else if(data.Status == 'ChangedUserCredentials'){
+				    successMessage = data.Message;
+	         	 	headerBackBtn=defaultPagePath+'expenzingImagePage.html';
+					pgRef=defaultPagePath+'loginPageResetPswd.html';
+					 setUserStatusInLocalStorage("ResetPswd");
+					j('#mainHeader').load(headerBackBtn);
+             		j('#mainContainer').load(pgRef,function() {
+  						document.getElementById("loginErrorMsg").innerHTML = successMessage;
+  						document.getElementById("userNameLabel").innerHTML=window.localStorage.getItem("UserName");
+  						document.getElementById("userName").value=window.localStorage.getItem("UserName");
+		 			   j('#loginErrorMsg').hide().fadeIn('slow').delay(4000).fadeOut('slow');
+		 			   j('#loading').hide();
+					});
+	           }
+
+	         },
+	         error:function(data) {
+			  
+	         }
+	   });
 	}
 }
