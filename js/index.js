@@ -88,8 +88,14 @@ function commanLogin(){
  	var userNameValue = userName.value; 
  	var domainName = userNameValue.split('@')[1];
 	var jsonToDomainNameSend = new Object();
+	alert("1--->"+domainName);
 	jsonToDomainNameSend["userName"] = domainName;
-	jsonToDomainNameSend["mobilePlatform"] = device.platform;
+	try 
+	{
+		jsonToDomainNameSend["mobilePlatform"] = device.platform;
+	}
+	catch(err){
+	alert("error"+err)}
 	//jsonToDomainNameSend["mobilePlatform"] = "Windows";
   	//var res=JSON.stringify(jsonToDomainNameSend);
 	var requestPath = WebServicePath;
