@@ -1399,6 +1399,7 @@ function synchronizeTRForTS() {
 							}
 						}						
 					});
+					onloadTravelSettleData();
 					j('#loading_Cat').hide();
 					document.getElementById("syncSuccessMsg").innerHTML = "Travel Request Details synchronized successfully.";
 					j('#syncSuccessMsg').hide().fadeIn('slow').delay(500).fadeOut('slow');
